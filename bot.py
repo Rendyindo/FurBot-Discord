@@ -64,13 +64,13 @@ async def e621(*args, description="Searches e621 with given queries"):
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await bot.say("""Artist: """ + imgartist + """\rSource: """ + imgsource + """\rRating: """ + imgrating + """\rTags: `""" + imgtags + """`\rImage link: """ + file_link)
+    await bot.say("""Artist: """ + imgartist + """\r\nSource: """ + imgsource + """\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
 
 bot.remove_command('help')
 @bot.command()
 async def help(*args):
-    await bot.say("""```FurBot, basically just a simple bot that searches e621.\r\rCommands:\r
-    help: Shows this message\r
-    e621 <search queries>: Searches e621 with given queries\r\rNeed help? Something broke? Contact Error-#2194```""")
+    await bot.say("""```FurBot, basically just a simple bot that searches e621.\r\n\r\nCommands:\r\n
+    help: Shows this message\r\n
+    e621 <search queries>: Searches e621 with given queries\r\n\r\nNeed help? Something broke? Contact Error-#2194```""")
 
 bot.run(token)
