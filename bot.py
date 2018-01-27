@@ -72,7 +72,7 @@ async def help(*args):
     await bot.say("""```FurBot, basically just a simple bot that searches e621.\r\n\r\nCommands:\r\n
     help: Shows this message\r\n
     search <search queries>: Searches e621 with given queries\r\n
-    show <post id>: Show image with given post ID\r\n\r\nNeed help? Something broke? Contact Error-#2194```""")
+    show <post id>: Show image with given post ID (Example Post ID: 1438576)\r\n\r\nNeed help? Something broke? Contact Error-#2194```""")
 
 @bot.command()
 async def show(arg):
@@ -80,6 +80,7 @@ async def show(arg):
         arg = int(arg)
     except ValueError:
         await bot.say( arg + " is not a valid post id!")
+        return
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
