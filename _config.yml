@@ -3,7 +3,7 @@ name: FurBot Discord Bot
 
 project:
     version: 0.1.0
-    download_url: https://github.com/Rendyindo/FurBot-Discord
+    download_url: 
 
 license:
     software: MIT License
