@@ -62,6 +62,7 @@ async def search(*args, description="Searches e621 with given queries"):
     print(fileurl)
     imgtags = str(imgtag)
     imgid = data[0]['id']
+    imgid = str(imgid)
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
