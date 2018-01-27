@@ -1,0 +1,2 @@
+requests==2.18.1
+https://github.com/Rapptz/discord.py/archive/rewrite.zip
