@@ -27,7 +27,7 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='e621!help'))
 
 @bot.command()
-async def search(*args, description="Searches e621 with given queries"):
+async def search(ctx, *args, description="Searches e621 with given queries"):
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
@@ -39,7 +39,7 @@ async def search(*args, description="Searches e621 with given queries"):
     r = requests.get(url=apilink, headers=headers)
     datajson = r.json()
     if not datajson:
-        await bot.say("No result for that query")
+        await ctx.send("No result for that query")
         return
     data = shuffle(datajson)
     fileurl = data[0]['file_url']
@@ -66,22 +66,22 @@ async def search(*args, description="Searches e621 with given queries"):
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await bot.say("""Post link: `https://e621.net/post/show/""" + imgid + """/`\r\nArtist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
+    await ctx.send("""Post link: `https://e621.net/post/show/""" + imgid + """/`\r\nArtist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
 
 bot.remove_command('help')
 @bot.command()
-async def help(*args):
-    await bot.say("""```FurBot, basically just a simple bot that searches e621.\r\rCommands:\r
+async def help(ctx, *args):
+    await ctx.send("""```FurBot, basically just a simple bot that searches e621.\r\rCommands:\r
     help: Shows this message\r
     search <search queries>: Searches e621 with given queries\r
     show <post id>: Show image with given post ID (Example Post ID: 1438576)\r\rNeed help? Something broke? Contact Error-#2194```""")
 
 @bot.command()
-async def show(arg):
+async def show(ctx, arg):
     try:
         arg = int(arg)
     except ValueError:
-        await bot.say( arg + " is not a valid post id!")
+        await ctx.send( arg + " is not a valid post id!")
         return
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
@@ -113,6 +113,6 @@ async def show(arg):
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await bot.say("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
+    await ctx.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
 
 bot.run(token)
