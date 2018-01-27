@@ -13,7 +13,7 @@ except KeyError:
     pass
 
 description = '''Bot that uhh, actually just searches e621'''
-bot = commands.Bot(command_prefix='?', description=description)
+bot = commands.Bot(command_prefix='e621!', description=description)
 def shuffle(arr):
     random.shuffle(arr)
     return arr
@@ -27,7 +27,7 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='?e621 <search queries>'))
 
 @bot.command()
-async def e621(*args, description="Searches e621 with given queries"):
+async def search(*args, description="Searches e621 with given queries"):
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
@@ -71,6 +71,45 @@ bot.remove_command('help')
 async def help(*args):
     await bot.say("""```FurBot, basically just a simple bot that searches e621.\r\n\r\nCommands:\r\n
     help: Shows this message\r\n
-    e621 <search queries>: Searches e621 with given queries\r\n\r\nNeed help? Something broke? Contact Error-#2194```""")
+    search <search queries>: Searches e621 with given queries\r\n
+    show <post id>: Show image with given post ID\r\n\r\nNeed help? Something broke? Contact Error-#2194```""")
+
+@bot.command()
+async def show(arg):
+    try:
+        arg = int(arg)
+    except ValueError:
+        await bot.say( arg + " is not a valid post id!")
+    headers = {
+        'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
+    }
+    arg = str(arg)
+    apilink = 'https://e621.net/post/show.json?id=' + arg
+    print(apilink)
+    r = requests.get(url=apilink, headers=headers)
+    data = r.json()
+    fileurl = data['file_url']
+    imgartists = data['artist']
+    imgartist = ''.join(imgartists)
+    imgtag = data['tags']
+    imgrate = data['rating']
+    if imgrate == "e":
+        imgrating = "Explicit"
+    if imgrate == "s":
+        imgrating = "Safe"
+    if imgrate == "q":
+        imgrating = "Mature/Questionable"
+    imgsources = data['source']
+    imgsource = str(imgsources)
+    if imgartist == "None":
+        imgartist = "Unspecified"
+    if imgsource == "None":
+        imgsource = "Unspecified"
+    print(fileurl)
+    imgtags = str(imgtag)
+    file_link = str(fileurl).replace('None', '')
+    print(file_link)
+    print(imgtags)
+    await bot.say("""Artist: """ + imgartist + """\r\nSource: """ + imgsource + """\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
 
 bot.run(token)
