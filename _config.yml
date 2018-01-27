@@ -1,9 +1,9 @@
 # name of the software
-name: Jekyll Docs Theme
+name: FurBot Discord Bot
 
 project:
     version: 0.1.0
-    download_url: https://github.com/allejo/jekyll-docs-theme/releases
+    download_url: https://github.com/Rendyindo/FurBot-Discord
 
 license:
     software: MIT License
@@ -15,13 +15,12 @@ license:
 links:
     header:
       - title: GitHub
-        url: https://github.com/allejo/jekyll-docs-theme
+        url: https://github.com/Rendyindo/FurBot-Discord
+      - title: Invite
+        url: https://discordapp.com/api/oauth2/authorize?client_id=406419784301936641&permissions=116736&scope=bot
     footer:
       - title: GitHub
-        url: https://github.com/allejo/jekyll-docs-theme
-      - title: Issues
-        url: https://github.com/allejo/jekyll-docs-theme/issues?state=open
-
+        url: https://github.com/Rendyindo/FurBot-Discord
 ui:
     header:
         color1: "#080331"
@@ -30,8 +29,8 @@ ui:
 
 social:
     github:
-        user: allejo
-        repo: jekyll-docs-theme
+        user: Rendyindo
+        repo: FurBot-Discord
     twitter:
         enabled: false
         via:
@@ -42,7 +41,7 @@ social:
         profileUrl:
 
 analytics:
-    google: UA-123456-1
+    google: 
 
 # Build settings
 markdown: kramdown
