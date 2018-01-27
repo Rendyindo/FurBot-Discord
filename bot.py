@@ -28,6 +28,9 @@ async def on_ready():
 
 @bot.command()
 async def search(ctx, *args, description="Searches e621 with given queries"):
+    if not ctx.channel.is_nsfw():
+        await ctx.send("Cannot be used in non-NSFW channels!")
+        return
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
@@ -82,6 +85,9 @@ async def show(ctx, arg):
         arg = int(arg)
     except ValueError:
         await ctx.send( arg + " is not a valid post id!")
+        return
+    if not ctx.channel.is_nsfw():
+        await ctx.send("Cannot be used in non-NSFW channels!")
         return
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
