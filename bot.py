@@ -31,8 +31,9 @@ async def e621(*args, description="Searches e621 with given queries"):
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
-    args = str(args).replace('(', '').replace("'", '').replace(',', '').replace(')', '')
+    args = ' '.join(args)
     print(args)
+    args = str(args)
     apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
     print(apilink)
     r = requests.get(url=apilink, headers=headers)
