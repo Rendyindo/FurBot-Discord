@@ -24,7 +24,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    await bot.change_presence(game=discord.Game(name='?e621 <search queries>'))
+    await bot.change_presence(game=discord.Game(name='e621!help'))
 
 @bot.command()
 async def search(*args, description="Searches e621 with given queries"):
