@@ -28,9 +28,10 @@ async def on_ready():
 
 @bot.command()
 async def search(ctx, *args, description="Searches e621 with given queries"):
-    if not ctx.channel.is_nsfw():
-        await ctx.send("Cannot be used in non-NSFW channels!")
-        return
+    if not type(ctx) is DMChannel:
+        if not ctx.channel.is_nsfw():
+            await ctx.send("Cannot be used in non-NSFW channels!")
+            return
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
