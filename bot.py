@@ -64,7 +64,7 @@ async def search(*args, description="Searches e621 with given queries"):
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await bot.say("""Artist: """ + imgartist + """\r\nSource: """ + imgsource + """\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
+    await bot.say("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
 
 bot.remove_command('help')
 @bot.command()
@@ -111,6 +111,6 @@ async def show(arg):
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await bot.say("""Artist: """ + imgartist + """\r\nSource: """ + imgsource + """\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
+    await bot.say("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
 
 bot.run(token)
