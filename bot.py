@@ -63,7 +63,7 @@ async def e621(*args, description="Searches e621 with given queries"):
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await bot.say("""Artist: """ + imgartist + """\nSource: """ + imgsource + """\nRating: """ + imgrating + """\nTags: `""" + imgtags + """`\nImage link: """ + file_link)
+    await bot.say("""Artist: """ + imgartist + """\rSource: """ + imgsource + """\rRating: """ + imgrating + """\rTags: `""" + imgtags + """`\rImage link: """ + file_link)
 
 bot.remove_command('help')
 @bot.command()
