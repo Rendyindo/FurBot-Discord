@@ -70,10 +70,10 @@ async def search(*args, description="Searches e621 with given queries"):
 bot.remove_command('help')
 @bot.command()
 async def help(*args):
-    await bot.say("""```FurBot, basically just a simple bot that searches e621.\r\n\r\nCommands:\r\n
-    help: Shows this message\r\n
-    search <search queries>: Searches e621 with given queries\r\n
-    show <post id>: Show image with given post ID (Example Post ID: 1438576)\r\n\r\nNeed help? Something broke? Contact Error-#2194```""")
+    await bot.say("""```FurBot, basically just a simple bot that searches e621.\r\rCommands:\r
+    help: Shows this message\r
+    search <search queries>: Searches e621 with given queries\r
+    show <post id>: Show image with given post ID (Example Post ID: 1438576)\r\rNeed help? Something broke? Contact Error-#2194```""")
 
 @bot.command()
 async def show(arg):
