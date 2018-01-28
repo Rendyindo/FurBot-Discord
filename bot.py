@@ -133,7 +133,7 @@ async def show(ctx, arg):
     await ctx.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
 
 @bot.command()
-async def random(ctx, *args, description="Output random result"):
+async def randompick(ctx, *args, description="Output random result"):
     if not isinstance(ctx.channel, discord.DMChannel):
         if not isinstance(ctx.channel, discord.GroupChannel):
             if not ctx.channel.is_nsfw():
