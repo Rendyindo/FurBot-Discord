@@ -12,8 +12,9 @@ Its state is currently Alpha, that means errors should be expected everywhere!
 ## Commands
 
 ```
-?help:                  Shows help message
-?e621 <search queries>: Searches e621 with given queries 
+e621!help:                    Shows help message
+e621!search <search queries>: Searches e621 with given queries 
+e621!show <Post ID>:          Shows post result based on Post ID.
 ```
 
 ## Help?
