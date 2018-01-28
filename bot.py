@@ -4,6 +4,7 @@ import requests, random, os
 
 try:
     import config
+    token = config.token()
 except ImportError:
     pass
 
@@ -50,7 +51,10 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
     fileurl = data[0]['file_url']
     imgartists = data[0]['artist']
     imgartist = ''.join(imgartists)
-    imgtag = data[0]['tags']
+    imgtag = data['tags']
+    imgtag = imgtag.split(" ")
+    tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
+    imgtags = tags[0]
     imgrate = data[0]['rating']
     if imgrate == "e":
         imgrating = "Explicit"
@@ -65,7 +69,7 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
     if imgsource == "None":
         imgsource = "Unspecified"
     print(fileurl)
-    imgtags = str(imgtag)
+    imgtags = str(' '.join(imgtags))
     imgid = data[0]['id']
     imgid = str(imgid)
     file_link = str(fileurl).replace('None', '')
