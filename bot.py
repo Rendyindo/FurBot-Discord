@@ -38,16 +38,20 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
     args = ' '.join(args)
-    print(args)
     args = str(args)
+    print("------")
+    print("Got command with args: " + args)
     apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
-    print(apilink)
+    print("API Link: " + apilink)
+    print("Requesting json from API")
     r = requests.get(url=apilink, headers=headers)
     datajson = r.json()
     if not datajson:
         await ctx.send("No result for that query")
         return
+    print("Shuffling data from json")
     data = shuffle(datajson)
+    print("Parsing data from json")
     fileurl = data[0]['file_url']
     imgartists = data[0]['artist']
     imgartist = ''.join(imgartists)
@@ -68,13 +72,10 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
         imgartist = "Unspecified"
     if imgsource == "None":
         imgsource = "Unspecified"
-    print(fileurl)
     imgtags = str(' '.join(imgtags))
     imgid = data[0]['id']
     imgid = str(imgid)
     file_link = str(fileurl).replace('None', '')
-    print(file_link)
-    print(imgtags)
     await ctx.send("""Post link: `https://e621.net/post/show/""" + imgid + """/`\r\nArtist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
 
 bot.remove_command('help')
@@ -100,11 +101,15 @@ async def show(ctx, arg):
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
+    print("------")
+    print("Got command with args: " + args)
     arg = str(arg)
     apilink = 'https://e621.net/post/show.json?id=' + arg
-    print(apilink)
+    print("API Link: " + apilink)
+    print("Requesting json from API")
     r = requests.get(url=apilink, headers=headers)
     data = r.json()
+    print("Parsing data from json")
     fileurl = data['file_url']
     imgartists = data['artist']
     imgartist = ''.join(imgartists)
@@ -125,11 +130,8 @@ async def show(ctx, arg):
         imgartist = "Unspecified"
     if imgsource == "None":
         imgsource = "Unspecified"
-    print(fileurl)
     imgtags = str(' '.join(imgtags))
     file_link = str(fileurl).replace('None', '')
-    print(file_link)
-    print(imgtags)
     await ctx.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
 
 @bot.command()
@@ -142,10 +144,15 @@ async def randompick(ctx, *args, description="Output random result"):
     headers = {
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
+    print("------")
+    print("Got command")
     apilink = 'https://e621.net/post/index.json?tags=score:>200 rating:e&limit=320'
+    print("Requesting json from API")
     r = requests.get(url=apilink, headers=headers)
     datajson = r.json()
+    print("Shuffling data from json")
     data = shuffle(datajson)
+    print("Parsing data from json")
     fileurl = data[0]['file_url']
     imgartists = data[0]['artist']
     imgartist = ''.join(imgartists)
@@ -166,13 +173,10 @@ async def randompick(ctx, *args, description="Output random result"):
         imgartist = "Unspecified"
     if imgsource == "None":
         imgsource = "Unspecified"
-    print(fileurl)
     imgtags = str(' '.join(imgtags))
     imgid = data[0]['id']
     imgid = str(imgid)
     file_link = str(fileurl).replace('None', '')
-    print(file_link)
-    print(imgtags)
     await ctx.send("""Post link: `https://e621.net/post/show/""" + imgid + """/`\r\nArtist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
 
 bot.run(token)
