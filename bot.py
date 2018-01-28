@@ -102,7 +102,7 @@ async def show(ctx, arg):
         'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
     }
     print("------")
-    print("Got command with args: " + args)
+    print("Got command with arg: " + arg)
     arg = str(arg)
     apilink = 'https://e621.net/post/show.json?id=' + arg
     print("API Link: " + apilink)
