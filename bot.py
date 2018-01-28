@@ -51,7 +51,7 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
     fileurl = data[0]['file_url']
     imgartists = data[0]['artist']
     imgartist = ''.join(imgartists)
-    imgtag = data['tags']
+    imgtag = data[0]['tags']
     imgtag = imgtag.split(" ")
     tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
     imgtags = tags[0]
@@ -75,7 +75,7 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await ctx.send("""Post link: `https://e621.net/post/show/""" + imgid + """/`\r\nArtist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
+    await ctx.send("""Post link: `https://e621.net/post/show/""" + imgid + """/`\r\nArtist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
 
 bot.remove_command('help')
 @bot.command()
@@ -109,6 +109,9 @@ async def show(ctx, arg):
     imgartists = data['artist']
     imgartist = ''.join(imgartists)
     imgtag = data['tags']
+    imgtag = imgtag.split(" ")
+    tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
+    imgtags = tags[0]
     imgrate = data['rating']
     if imgrate == "e":
         imgrating = "Explicit"
@@ -123,10 +126,10 @@ async def show(ctx, arg):
     if imgsource == "None":
         imgsource = "Unspecified"
     print(fileurl)
-    imgtags = str(imgtag)
+    imgtags = str(' '.join(imgtags))
     file_link = str(fileurl).replace('None', '')
     print(file_link)
     print(imgtags)
-    await ctx.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """`\r\nImage link: """ + file_link)
+    await ctx.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
 
 bot.run(token)
