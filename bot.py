@@ -4,7 +4,7 @@ import requests, random, os
 
 try:
     import config
-    token = config.token()
+    token = config.token
 except ImportError:
     pass
 
