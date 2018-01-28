@@ -132,4 +132,47 @@ async def show(ctx, arg):
     print(imgtags)
     await ctx.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
 
+@bot.command()
+async def random(ctx, *args, description="Output random result"):
+    if not isinstance(ctx.channel, discord.DMChannel):
+        if not isinstance(ctx.channel, discord.GroupChannel):
+            if not ctx.channel.is_nsfw():
+                await ctx.send("Cannot be used in non-NSFW channels!")
+                return
+    headers = {
+        'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
+    }
+    apilink = 'https://e621.net/post/index.json?tags=score:>200 rating:e&limit=320'
+    r = requests.get(url=apilink, headers=headers)
+    datajson = r.json()
+    data = shuffle(datajson)
+    fileurl = data[0]['file_url']
+    imgartists = data[0]['artist']
+    imgartist = ''.join(imgartists)
+    imgtag = data[0]['tags']
+    imgtag = imgtag.split(" ")
+    tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
+    imgtags = tags[0]
+    imgrate = data[0]['rating']
+    if imgrate == "e":
+        imgrating = "Explicit"
+    if imgrate == "s":
+        imgrating = "Safe"
+    if imgrate == "q":
+        imgrating = "Mature/Questionable"
+    imgsources = data[0]['source']
+    imgsource = str(imgsources)
+    if imgartist == "None":
+        imgartist = "Unspecified"
+    if imgsource == "None":
+        imgsource = "Unspecified"
+    print(fileurl)
+    imgtags = str(' '.join(imgtags))
+    imgid = data[0]['id']
+    imgid = str(imgid)
+    file_link = str(fileurl).replace('None', '')
+    print(file_link)
+    print(imgtags)
+    await ctx.send("""Post link: `https://e621.net/post/show/""" + imgid + """/`\r\nArtist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
+
 bot.run(token)
