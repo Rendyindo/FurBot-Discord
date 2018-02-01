@@ -63,6 +63,42 @@ def processapi(apilink):
     processapi.imgid = str(imgid)
     processapi.file_link = str(fileurl).replace('None', '')
 
+def processshowapi(apilink):
+    print("API Link: " + apilink)
+    print("Requesting json from API")
+    r = requests.get(url=apilink, headers=headers)
+    data = r.json()
+    if not data:
+        print("Result Not Found")
+        raise ResultNotFound()
+    print("Parsing data from json")
+    fileurl = data['file_url']
+    imgartists = data['artist']
+    imgartist = ''.join(imgartists)
+    imgtag = data['tags']
+    imgtag = imgtag.split(" ")
+    tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
+    imgtags = tags[0]
+    imgrate = data['rating']
+    if imgrate == "e":
+        processshowapi.imgrating = "Explicit"
+    if imgrate == "s":
+        processshowapi.imgrating = "Safe"
+    if imgrate == "q":
+        processshowapi.imgrating = "Mature/Questionable"
+    imgsources = data['source']
+    imgsource = str(imgsources)
+    if imgartist == "None":
+        processshowapi.imgartist = "Unspecified"
+    else:
+        processshowapi.imgartist = imgartist
+    if imgsource == "None":
+        processshowapi.imgsource = "Unspecified"
+    else:
+        processshowapi.imgsource = imgsource
+    processshowapi.imgtags = str(' '.join(imgtags))
+    processshowapi.file_link = str(fileurl).replace('None', '')
+
 def shuffle(arr):
     random.shuffle(arr)
     return arr
@@ -118,34 +154,11 @@ async def show(ctx, arg):
     arg = str(arg)
     print("Got command with arg: " + arg)
     apilink = 'https://e621.net/post/show.json?id=' + arg
-    print("API Link: " + apilink)
-    print("Requesting json from API")
-    r = requests.get(url=apilink, headers=headers)
-    data = r.json()
-    print("Parsing data from json")
-    fileurl = data['file_url']
-    imgartists = data['artist']
-    imgartist = ''.join(imgartists)
-    imgtag = data['tags']
-    imgtag = imgtag.split(" ")
-    tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
-    imgtags = tags[0]
-    imgrate = data['rating']
-    if imgrate == "e":
-        imgrating = "Explicit"
-    if imgrate == "s":
-        imgrating = "Safe"
-    if imgrate == "q":
-        imgrating = "Mature/Questionable"
-    imgsources = data['source']
-    imgsource = str(imgsources)
-    if imgartist == "None":
-        imgartist = "Unspecified"
-    if imgsource == "None":
-        imgsource = "Unspecified"
-    imgtags = str(' '.join(imgtags))
-    file_link = str(fileurl).replace('None', '')
-    await ctx.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
+    try:
+        processshowapi(apilink)
+    except ResultNotFound:
+        return
+    await ctx.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
 @bot.command()
 async def randompick(ctx, *args, description="Output random result"):
@@ -166,6 +179,12 @@ async def randompick(ctx, *args, description="Output random result"):
 
 @bot.event
 async def on_message(message):
+    await bot.process_commands(message)
+    if not isinstance(message.channel, discord.DMChannel):
+        if not isinstance(message.channel, discord.GroupChannel):
+            if not message.channel.is_nsfw():
+                await message.channel.send("Cannot be used in non-NSFW channels!")
+                return
     msgurls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
     for msgurl in msgurls:
         parsed = urlparse(msgurl)
@@ -183,33 +202,10 @@ async def on_message(message):
             arg = str(postid)
             print("Got command with arg: " + arg)
             apilink = 'https://e621.net/post/show.json?id=' + arg
-            print("API Link: " + apilink)
-            print("Requesting json from API")
-            r = requests.get(url=apilink, headers=headers)
-            data = r.json()
-            print("Parsing data from json")
-            fileurl = data['file_url']
-            imgartists = data['artist']
-            imgartist = ''.join(imgartists)
-            imgtag = data['tags']
-            imgtag = imgtag.split(" ")
-            tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
-            imgtags = tags[0]
-            imgrate = data['rating']
-            if imgrate == "e":
-                imgrating = "Explicit"
-            if imgrate == "s":
-                imgrating = "Safe"
-            if imgrate == "q":
-                imgrating = "Mature/Questionable"
-            imgsources = data['source']
-            imgsource = str(imgsources)
-            if imgartist == "None":
-                imgartist = "Unspecified"
-            if imgsource == "None":
-                imgsource = "Unspecified"
-            imgtags = str(' '.join(imgtags))
-            file_link = str(fileurl).replace('None', '')
-            await message.channel.send("""Artist: """ + imgartist + """\r\nSource: `""" + imgsource + """`\r\nRating: """ + imgrating + """\r\nTags: `""" + imgtags + """` ...and more\r\nImage link: """ + file_link)
+            try:
+                processshowapi(apilink)
+            except ResultNotFound:
+                return
+            await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
 bot.run(token)
