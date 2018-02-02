@@ -195,8 +195,8 @@ async def randompick(ctx, *args, description="Output random result"):
     await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
 @bot.event
-async def on_message(self, message):
-    if message.author.id == self.user.id:
+async def on_message(message):
+    if message.author.id == bot.user.id:
          return
     await bot.process_commands(message)
     msgurls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
