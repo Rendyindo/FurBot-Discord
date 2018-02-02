@@ -196,7 +196,7 @@ async def randompick(ctx, *args, description="Output random result"):
 
 @bot.event
 async def on_message(self, message):
-     if message.author.id == self.user.id:
+    if message.author.id == self.user.id:
          return
     await bot.process_commands(message)
     msgurls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
