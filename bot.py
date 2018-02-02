@@ -157,6 +157,7 @@ async def show(ctx, arg):
     try:
         processshowapi(apilink)
     except ResultNotFound:
+        await ctx.send("Result not found!")
         return
     await ctx.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
