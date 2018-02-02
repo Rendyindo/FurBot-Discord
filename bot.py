@@ -109,7 +109,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    await bot.change_presence(game=discord.Game(name='e621!help'))
+    await bot.change_presence(game=discord.Game(name='!furbot help'))
 
 @bot.command(pass_context=True)
 async def search(ctx, *args, description="Searches e621 with given queries"):
@@ -142,7 +142,7 @@ async def help(ctx, *args):
     help: Shows this message\r
     search <search queries>: Searches e621 with given queries\r
     show <post id>: Show image with given post ID (Example Post ID: 1438576)\r
-    randompick: Replies a random pick from e621 or e926\rUse !e621 for NSFW result, or use !e926 for SFW result.\r\rNeed help? Something broke? Contact Error-#2194```""")
+    randompick: Replies a random pick from e621 or e926\rUse !e621 for NSFW result, or use !e926 for SFW result. (Using !furbot will force using !e621)\r\rNeed help? Something broke? Contact Error-#2194```""")
 
 @bot.command(pass_context=True)
 async def show(ctx, arg):
