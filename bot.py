@@ -18,7 +18,7 @@ class ResultNotFound(Exception):
     pass
 
 description = '''Bot that uhh, actually just searches e621'''
-bot = commands.Bot(command_prefix='e621!', description=description)
+bot = commands.Bot(command_prefix=('!furbot ', '!e621 ', '!e926 '), description=description)
 headers = {
     'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
 }
@@ -111,49 +111,60 @@ async def on_ready():
     print('------')
     await bot.change_presence(game=discord.Game(name='e621!help'))
 
-@bot.command()
+@bot.command(pass_context=True)
 async def search(ctx, *args, description="Searches e621 with given queries"):
-    if not isinstance(ctx.channel, discord.DMChannel):
-        if not isinstance(ctx.channel, discord.GroupChannel):
-            if not ctx.channel.is_nsfw():
-                await ctx.send("Cannot be used in non-NSFW channels!")
-                return
+    if ctx.message.content.startswith('!e926'):
+        netloc = "e926"
+    else:
+        netloc = "e621"
+    if netloc == "e621":
+        if not isinstance(ctx.channel, discord.DMChannel):
+            if not isinstance(ctx.channel, discord.GroupChannel):
+                if not ctx.channel.is_nsfw():
+                    await ctx.send("Cannot be used in non-NSFW channels!")
+                    return
     args = ' '.join(args)
     args = str(args)
     print("------")
     print("Got command with args: " + args)
-    apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
+    apilink = 'https://' + netloc + '.net/post/index.json?tags=' + args + '&limit=320'
     try:
         processapi(apilink)
     except ResultNotFound:
         await ctx.send("Result not found!")
         return
-    await ctx.send("""Post link: `https://e621.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
+    await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
 bot.remove_command('help')
-@bot.command()
+@bot.command(pass_context=True)
 async def help(ctx, *args):
-    await ctx.send("""```FurBot, basically just a simple bot that searches e621.\r\rCommands:\r
+    await ctx.send("""```FurBot, basically just a simple bot that searches e621 and e926.\r\rCommands:\r
     help: Shows this message\r
     search <search queries>: Searches e621 with given queries\r
-    show <post id>: Show image with given post ID (Example Post ID: 1438576)\r\rNeed help? Something broke? Contact Error-#2194```""")
+    show <post id>: Show image with given post ID (Example Post ID: 1438576)\r
+    randompick: Replies a random pick from e621 or e926\rUse !e621 for NSFW result, or use !e926 for SFW result.\r\rNeed help? Something broke? Contact Error-#2194```""")
 
-@bot.command()
+@bot.command(pass_context=True)
 async def show(ctx, arg):
+    if ctx.message.content.startswith('!e926'):
+        netloc = "e926"
+    else:
+        netloc = "e621"
     try:
         arg = int(arg)
     except ValueError:
         await ctx.send( arg + " is not a valid post id!")
         return
-    if not isinstance(ctx.channel, discord.DMChannel):
-        if not isinstance(ctx.channel, discord.GroupChannel):
-            if not ctx.channel.is_nsfw():
-                await ctx.send("Cannot be used in non-NSFW channels!")
-                return
+    if netloc == "e621":
+        if not isinstance(ctx.channel, discord.DMChannel):
+            if not isinstance(ctx.channel, discord.GroupChannel):
+                if not ctx.channel.is_nsfw():
+                    await ctx.send("Cannot be used in non-NSFW channels!")
+                    return
     print("------")
     arg = str(arg)
     print("Got command with arg: " + arg)
-    apilink = 'https://e621.net/post/show.json?id=' + arg
+    apilink = 'https://' + netloc + '.net/post/show.json?id=' + arg
     try:
         processshowapi(apilink)
     except ResultNotFound:
@@ -161,35 +172,39 @@ async def show(ctx, arg):
         return
     await ctx.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
-@bot.command()
+@bot.command(pass_context=True)
 async def randompick(ctx, *args, description="Output random result"):
-    if not isinstance(ctx.channel, discord.DMChannel):
-        if not isinstance(ctx.channel, discord.GroupChannel):
-            if not ctx.channel.is_nsfw():
-                await ctx.send("Cannot be used in non-NSFW channels!")
-                return
+    if ctx.message.content.startswith('!e926'):
+        netloc = "e926"
+    else:
+        netloc = "e621"
+    if netloc == "e621":
+        if not isinstance(ctx.channel, discord.DMChannel):
+            if not isinstance(ctx.channel, discord.GroupChannel):
+                if not ctx.channel.is_nsfw():
+                    await ctx.send("Cannot be used in non-NSFW channels!")
+                    return
     print("------")
     print("Got command")
-    apilink = 'https://e621.net/post/index.json?tags=score:>200 rating:e&limit=320'
+    apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320'
     try:
         processapi(apilink)
     except ResultNotFound:
         await ctx.send("Result not found!")
         return
-    await ctx.send("""Post link: `https://e621.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
+    await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-    if not isinstance(message.channel, discord.DMChannel):
-        if not isinstance(message.channel, discord.GroupChannel):
-            if not message.channel.is_nsfw():
-                await message.channel.send("Cannot be used in non-NSFW channels!")
-                return
     msgurls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
     for msgurl in msgurls:
         parsed = urlparse(msgurl)
         if parsed.netloc == "e621.net":
+            if not isinstance(ctx.channel, discord.DMChannel):
+                if not isinstance(ctx.channel, discord.GroupChannel):
+                    if not ctx.channel.is_nsfw():
+                        return
             urlargs = parsed.path.split('/')
             try:
                 postid = urlargs[3]
@@ -203,6 +218,25 @@ async def on_message(message):
             arg = str(postid)
             print("Got command with arg: " + arg)
             apilink = 'https://e621.net/post/show.json?id=' + arg
+            try:
+                processshowapi(apilink)
+            except ResultNotFound:
+                return
+            await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
+        if parsed.netloc == "e926.net":
+            urlargs = parsed.path.split('/')
+            try:
+                postid = urlargs[3]
+            except IndexError:
+                return
+            try:
+                int(postid)
+            except ValueError:
+                return
+            print("------")
+            arg = str(postid)
+            print("Got command with arg: " + arg)
+            apilink = 'https://e926.net/post/show.json?id=' + arg
             try:
                 processshowapi(apilink)
             except ResultNotFound:
