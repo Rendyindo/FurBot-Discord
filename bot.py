@@ -138,11 +138,16 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
 bot.remove_command('help')
 @bot.command(pass_context=True)
 async def help(ctx, *args):
-    await ctx.send("""```FurBot, basically just a simple bot that searches e621 and e926.\r\rCommands:\r
+    await ctx.send("""```FurBot, basically just a simple bot that searches e621 and e926.
+\r
+\rCommands:\r
     help: Shows this message\r
     search <search queries>: Searches e621 with given queries\r
     show <post id>: Show image with given post ID (Example Post ID: 1438576)\r
-    randompick: Replies a random pick from e621 or e926\rUse !e621 for NSFW result, or use !e926 for SFW result. (Using !furbot will force using !e621)\r\rNeed help? Something broke? Contact Error-#2194```""")
+    randompick: Replies a random pick from e621 or e926
+\rUse !e621 for NSFW result, or use !e926 for SFW result. (Using !furbot will force using !e621)
+\r
+\rNeed help? Something broke? Contact Error-#2194```""")
 
 @bot.command(pass_context=True)
 async def show(ctx, arg):
