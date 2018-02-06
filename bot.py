@@ -244,9 +244,16 @@ async def on_message(message):
                 return
             await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
+async def find_channel(guild):
+    for c in guild.text_channels:
+        if not c.permissions_for(guild.me).send_messages:
+            continue
+        return c
+
 @bot.event
 async def on_guild_join(guild):
-    await bot.send("~~Awoo!~~ Hewwo thewe, " + guild.name + """!\r
+    channel = await find_channel(guild)
+    await channel.send("~~Awoo!~~ Hewwo thewe, " + guild.name + """!\r
 I'm FurBot, a e621/e926 search bot! If you want to try me out, go ahead check out the help! The command is `!furbot help`.\r
 If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
 Thank you very much for using this bot!""")
