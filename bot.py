@@ -183,12 +183,6 @@ async def randompick(ctx, *args, description="Output random result"):
         netloc = "e926"
     else:
         netloc = "e621"
-    if netloc == "e621":
-        if not isinstance(ctx.channel, discord.DMChannel):
-            if not isinstance(ctx.channel, discord.GroupChannel):
-                if not ctx.channel.is_nsfw():
-                    await ctx.send("Cannot be used in non-NSFW channels!")
-                    return
     print("------")
     print("Got command")
     apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320'
