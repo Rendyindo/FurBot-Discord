@@ -208,9 +208,9 @@ async def on_message(message):
     for msgurl in msgurls:
         parsed = urlparse(msgurl)
         if parsed.netloc == "e621.net":
-            if not isinstance(message.channel, discord.DMChannel):
-                if not isinstance(message.channel, discord.GroupChannel):
-                    if not message.channel.is_nsfw():
+            if not isinstance(ctx.channel, discord.DMChannel):
+                if not isinstance(ctx.channel, discord.GroupChannel):
+                    if not ctx.channel.is_nsfw():
                         return
             urlargs = parsed.path.split('/')
             try:
@@ -249,5 +249,12 @@ async def on_message(message):
             except ResultNotFound:
                 return
             await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
+
+@bot.event
+async def on_guild_join(guild):
+    await bot.send("~~Awoo!~~ Hewwo thewe, " + guild.name """!\r
+I'm FurBot, a e621/e926 search bot! If you want to try me out, go ahead check out the help! The command is `!furbot help`.\r
+If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
+Thank you very much for using this bot!""")
 
 bot.run(token)
