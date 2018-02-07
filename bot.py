@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import requests, random, os, re
+import requests, random, os, re, asyncio
 from urllib.parse import urlparse
 
 try:
@@ -197,6 +197,7 @@ async def randompick(ctx, *args, description="Output random result"):
 async def on_message(message):
     if message.author.id == bot.user.id:
          return
+    await asyncio.sleep(0.5)
     await bot.process_commands(message)
     msgurls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
     for msgurl in msgurls:
