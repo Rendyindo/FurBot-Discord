@@ -306,6 +306,6 @@ async def choose(ctx, *args):
     if len(choices) < 2:
         await ctx.send("You need to send at least 2 argument!")
         return
-    await ctx.send(random.choice(choices))
+    await ctx.send(random.choice(choices) + ", of course!")
 
 bot.run(token)
