@@ -199,10 +199,6 @@ async def on_message(message):
     for msgurl in msgurls:
         parsed = urlparse(msgurl)
         if parsed.netloc == "e621.net":
-            if not isinstance(message.channel, discord.DMChannel):
-                if not isinstance(message.channel, discord.GroupChannel):
-                    if not message.channel.is_nsfw():
-                        return
             urlargs = parsed.path.split('/')
             try:
                 postid = urlargs[3]
