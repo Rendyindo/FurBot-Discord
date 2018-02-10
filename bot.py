@@ -305,7 +305,7 @@ async def report(ctx, *args):
         text_file.write(message)
     await ctx.send("Thanks for your input! I've notified my owner about it~")
     user = bot.get_user(owner)
-    await owner.send("""New report:\r
+    await user.send("""New report:\r
 ```""" + message + "```")
 
 bot.run(token)
