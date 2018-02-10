@@ -245,4 +245,32 @@ async def on_message(message):
                 return
             await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
+@bot.command(pass_context=True)
+async def avatar(ctx, message):
+    mentions = ctx.message.mentions
+    for user in mentions:
+        avatarurl = user.avatar_url
+        await ctx.send("Avatar URL for " + user.mention + """\r
+""" + avatarurl)
+
+@bot.command(pass_context=True)
+async def urban(ctx, args):
+    args = ' '.join(args)
+    args = str(args)
+    apilink = "http://api.urbandictionary.com/v0/define?term=" + args
+    r = requests.get(url=apilink, headers=headers)
+    datajson = r.json()
+    listcount = 0
+    try:
+        while datajson['list'][listcount]['definition'].count('') > 1001:
+            listcount = listcount + 1
+    except IndexError:
+        await ctx.send("Sorry, but we seem to reach the Discord character limit!")
+    result = datajson['list'][listcount]
+    embed=discord.Embed(title="**" + result['word'] + "**", url=result['permalink'], description="by: " + result['author'], color=0xc4423c)
+    embed.add_field(name="Definition", value=result['definition'], inline=False)
+    embed.add_field(name="Example", value=result['example'], inline=True)
+    embed.set_footer(text=u"👍 " + str(result['thumbs_up']) + " | " + u"👎 " + str(result['thumbs_down']))
+    await ctx.send(embed=embed)
+
 bot.run(token)
