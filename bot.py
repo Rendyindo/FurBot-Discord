@@ -6,11 +6,13 @@ from urllib.parse import urlparse
 try:
     import config
     token = config.token
+    owner = config.owner
 except ImportError:
     pass
 
 try:
     token = os.environ['DISCORD_TOKEN']
+    owner = os.environ['DISCORD_OWNER']
 except KeyError:
     pass
 
@@ -294,5 +296,16 @@ async def about(ctx):
     embed.add_field(name=Library, value=discord.py, inline=False)
     embed.add_field(name=Support Server, value=https://discord.gg/YTEeY9g, inline=False)
     await ctx.send(embed=embed)
+
+@bot.command()
+async def report(ctx, *args):
+    args = ' '.join(args)
+    message = str(args)
+    with open("reports.log", "w") as text_file:
+        text_file.write(message)
+    await ctx.send("Thanks for your input! I've notified my owner about it~")
+    user = bot.get_user(owner)
+    await owner.send("""New report:\r
+```""" + message + """```)
 
 bot.run(token)
