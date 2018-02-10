@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import requests, random, os, re, asyncio, aiohttp
+import random, os, re, asyncio, aiohttp
 from urllib.parse import urlparse
 
 try:
