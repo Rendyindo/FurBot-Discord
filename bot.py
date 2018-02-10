@@ -287,4 +287,12 @@ I'm FurBot, a e621/e926 search bot! If you want to try me out, go ahead check ou
 If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
 Thank you very much for using this bot!""")
 
+@bot.command()
+async def about(ctx):
+    embed=discord.Embed(color=0x0089ff)
+    embed.add_field(name=Developer, value=Error-, inline=False)
+    embed.add_field(name=Library, value=discord.py, inline=False)
+    embed.add_field(name=Support Server, value=https://discord.gg/YTEeY9g, inline=False)
+    await ctx.send(embed=embed)
+
 bot.run(token)
