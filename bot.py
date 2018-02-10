@@ -20,7 +20,7 @@ class ResultNotFound(Exception):
     pass
 
 description = '''Bot that uhh, actually just searches e621'''
-bot = commands.Bot(command_prefix=('!furbot ', '!e621 ', '!e926 '), description=description)
+bot = commands.Bot(command_prefix=('f!'), description=description)
 headers = {
     'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
 }
@@ -114,28 +114,38 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='!furbot help'))
 
 @bot.command(pass_context=True)
-async def search(ctx, *args, description="Searches e621 with given queries"):
-    if ctx.message.content.startswith('!e926'):
-        netloc = "e926"
-    else:
-        netloc = "e621"
-    if netloc == "e621":
-        if not isinstance(ctx.channel, discord.DMChannel):
-            if not isinstance(ctx.channel, discord.GroupChannel):
-                if not ctx.channel.is_nsfw():
-                    await ctx.send("Cannot be used in non-NSFW channels!")
-                    return
+async def e621(ctx, *args):
+    if not isinstance(ctx.channel, discord.DMChannel):
+        if not isinstance(ctx.channel, discord.GroupChannel):
+            if not ctx.channel.is_nsfw():
+                await ctx.send("Cannot be used in non-NSFW channels!")
+                return
     args = ' '.join(args)
     args = str(args)
     print("------")
     print("Got command with args: " + args)
-    apilink = 'https://' + netloc + '.net/post/index.json?tags=' + args + '&limit=320'
+    apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
     try:
         processapi(apilink)
     except ResultNotFound:
         await ctx.send("Result not found!")
         return
     await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
+
+@bot.command(pass_context=True)
+async def e926(ctx, *args):
+    args = ' '.join(args)
+    args = str(args)
+    print("------")
+    print("Got command with args: " + args)
+    apilink = 'https://e926.net/post/index.json?tags=' + args + '&limit=320'
+    try:
+        processapi(apilink)
+    except ResultNotFound:
+        await ctx.send("Result not found!")
+        return
+    await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
+
 
 bot.remove_command('help')
 @bot.command(pass_context=True)
@@ -144,21 +154,12 @@ async def help(ctx, *args):
 
 @bot.command(pass_context=True)
 async def show(ctx, arg):
-    if ctx.message.content.startswith('!e926'):
-        netloc = "e926"
-    else:
-        netloc = "e621"
-    try:
-        arg = int(arg)
-    except ValueError:
-        await ctx.send( arg + " is not a valid post id!")
-        return
-    if netloc == "e621":
-        if not isinstance(ctx.channel, discord.DMChannel):
-            if not isinstance(ctx.channel, discord.GroupChannel):
-                if not ctx.channel.is_nsfw():
-                    await ctx.send("Cannot be used in non-NSFW channels!")
-                    return
+    if not isinstance(ctx.channel, discord.DMChannel):
+        if not isinstance(ctx.channel, discord.GroupChannel):
+            if not ctx.channel.is_nsfw():
+                netloc = "e926"
+            else:
+                netloc = "e621"
     print("------")
     arg = str(arg)
     print("Got command with arg: " + arg)
@@ -172,10 +173,12 @@ async def show(ctx, arg):
 
 @bot.command(pass_context=True)
 async def randompick(ctx, *args, description="Output random result"):
-    if ctx.message.content.startswith('!e926'):
-        netloc = "e926"
-    else:
-        netloc = "e621"
+    if not isinstance(ctx.channel, discord.DMChannel):
+        if not isinstance(ctx.channel, discord.GroupChannel):
+            if not ctx.channel.is_nsfw():
+                netloc = "e926"
+            else:
+                netloc = "e621"
     print("------")
     print("Got command")
     apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320'
