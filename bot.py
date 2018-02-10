@@ -256,7 +256,7 @@ async def avatar(ctx, message):
 """ + avatarurl)
 
 @bot.command(pass_context=True)
-async def urban(ctx, args):
+async def urban(ctx, *args):
     args = ' '.join(args)
     args = str(args)
     apilink = "http://api.urbandictionary.com/v0/define?term=" + args
