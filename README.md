@@ -12,12 +12,15 @@ An e621 search bot, inspired by furbot from /r/furry_irl (Join our [Discord Serv
 ## Using this bot
 Command | Usage | Example
 --------|-------|---------
+about | Sends info about the bot | -
 help | Shows help message | -
-search <search queries> | Searches e621 with given queries | <prefix> search femboy fox
-show <post id> | Show image with given post ID | <prefix> show 123456
+report | Reports problem about the bot | f!report x is broke!
+search <search queries> | Searches e621 with given queries | f!search femboy fox
+show <post id> | Show image with given post ID | f!show 123456
 randompick | Replies a random pick from e621 or e926 | -
-  
-  Use `!e621` for NSFW result, or use `!e926` for SFW result. (Using `!furbot` will force using `!e621`)
+avatar | Sends image link to mentioned user | f!avatar @Error-#2194
+urban <search query> | Searches Urban Dictionary with given query | f!urban yiff
+choose `<arg 1> | <arg 2> ...` | Chooses one from given arguments | f!choose `femboy fox | femboy wolf`
   
   If the bot detects e621 or e926 link from your message, it will sends info about your linked post.
 
