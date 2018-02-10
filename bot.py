@@ -89,7 +89,7 @@ async def processshowapi(apilink):
     print("Parsing data from json")
     fileurl = data['file_url']
     imgartists = data['artist']
-    imgartist = ''.join(imgartists)
+    imgartist = ', '.join(imgartists)
     imgtag = data['tags']
     imgtag = imgtag.split(" ")
     tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
