@@ -308,4 +308,14 @@ async def report(ctx, *args):
     await user.send("""New report:\r
 ```""" + message + "```")
 
+@bot.command()
+async def choose(ctx, *args):
+    args = ' '.join(args)
+    args = str(args)
+    choices = args.split('|')
+    if len(choices) < 2:
+        await ctx.send("You need to send at least 2 argument!")
+        return
+    await ctx.send(random.choice(choices))
+
 bot.run(token)
