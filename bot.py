@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import requests, random, os, re, asyncio
+import requests, random, os, re, asyncio, aiohttp
 from urllib.parse import urlparse
 
 try:
@@ -19,17 +19,25 @@ except KeyError:
 class ResultNotFound(Exception):
     pass
 
+class InvalidHTTPResponse(Exception):
+    pass
+
 description = '''Bot that uhh, actually just searches e621'''
 bot = commands.Bot(command_prefix=('f!'), description=description)
 headers = {
     'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
 }
 
-def processapi(apilink):
+async def processapi(apilink):
     print("API Link: " + apilink)
     print("Requesting json from API")
-    r = requests.get(url=apilink, headers=headers)
-    datajson = r.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(apilink, headers=headers) as r:
+            if r.status == 200:
+                datajson = await r.json()
+            else:
+                print("Invalid HTTP Response:" + str(r.status))
+                raise InvalidHTTPResponse()
     if not datajson:
         print("Result Not Found")
         raise ResultNotFound()
@@ -65,11 +73,16 @@ def processapi(apilink):
     processapi.imgid = str(imgid)
     processapi.file_link = str(fileurl).replace('None', '')
 
-def processshowapi(apilink):
+async def processshowapi(apilink):
     print("API Link: " + apilink)
     print("Requesting json from API")
-    r = requests.get(url=apilink, headers=headers)
-    data = r.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(apilink, headers=headers) as r:
+            if r.status == 200:
+                datajson = await r.json()
+            else:
+                print("Invalid HTTP Response:" + str(r.status))
+                raise InvalidHTTPResponse()
     if not data:
         print("Result Not Found")
         raise ResultNotFound()
@@ -126,9 +139,12 @@ async def e621(ctx, *args):
     print("Got command with args: " + args)
     apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
     try:
-        processapi(apilink)
+        await processapi(apilink)
     except ResultNotFound:
         await ctx.send("Result not found!")
+        return
+    except InvalidHTTPResponse:
+        await ctx.send("We're getting invalid response from the API, please try again later!")
         return
     await ctx.send("""Post link: `https://e621.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
@@ -140,9 +156,12 @@ async def e926(ctx, *args):
     print("Got command with args: " + args)
     apilink = 'https://e926.net/post/index.json?tags=' + args + '&limit=320'
     try:
-        processapi(apilink)
+        await processapi(apilink)
     except ResultNotFound:
         await ctx.send("Result not found!")
+        return
+    except InvalidHTTPResponse:
+        await ctx.send("We're getting invalid response from the API, please try again later!")
         return
     await ctx.send("""Post link: `https://e926.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
@@ -165,9 +184,12 @@ async def show(ctx, arg):
     print("Got command with arg: " + arg)
     apilink = 'https://' + netloc + '.net/post/show.json?id=' + arg
     try:
-        processshowapi(apilink)
+        await processshowapi(apilink)
     except ResultNotFound:
         await ctx.send("Result not found!")
+        return
+    except InvalidHTTPResponse:
+        await ctx.send("We're getting invalid response from the API, please try again later!")
         return
     await ctx.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
@@ -183,9 +205,12 @@ async def randompick(ctx, *args, description="Output random result"):
     print("Got command")
     apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320'
     try:
-        processapi(apilink)
+        await processapi(apilink)
     except ResultNotFound:
         await ctx.send("Result not found!")
+        return
+    except InvalidHTTPResponse:
+        await ctx.send("We're getting invalid response from the API, please try again later!")
         return
     await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
@@ -213,8 +238,10 @@ async def on_message(message):
             print("Got command with arg: " + arg)
             apilink = 'https://e621.net/post/show.json?id=' + arg
             try:
-                processshowapi(apilink)
+                await processshowapi(apilink)
             except ResultNotFound:
+                return
+            except InvalidHTTPResponse:
                 return
             await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
         if parsed.netloc == "e926.net":
@@ -232,8 +259,10 @@ async def on_message(message):
             print("Got command with arg: " + arg)
             apilink = 'https://e926.net/post/show.json?id=' + arg
             try:
-                processshowapi(apilink)
+                await processshowapi(apilink)
             except ResultNotFound:
+                return
+            except InvalidHTTPResponse:
                 return
             await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
 
