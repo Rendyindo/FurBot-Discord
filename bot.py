@@ -292,9 +292,9 @@ Thank you very much for using this bot!""")
 @bot.command()
 async def about(ctx):
     embed=discord.Embed(color=0x0089ff)
-    embed.add_field(name=Developer, value=Error-, inline=False)
+    embed.add_field(name=Developer, value="Error-", inline=False)
     embed.add_field(name=Library, value=discord.py, inline=False)
-    embed.add_field(name=Support Server, value=https://discord.gg/YTEeY9g, inline=False)
+    embed.add_field(name="Support Server", value="https://discord.gg/YTEeY9g", inline=False)
     await ctx.send(embed=embed)
 
 @bot.command()
@@ -306,6 +306,6 @@ async def report(ctx, *args):
     await ctx.send("Thanks for your input! I've notified my owner about it~")
     user = bot.get_user(owner)
     await owner.send("""New report:\r
-```""" + message + """```)
+```""" + message + "```")
 
 bot.run(token)
