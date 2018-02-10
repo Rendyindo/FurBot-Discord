@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import requests, random, os, re
+import requests, random, os, re, asyncio
 from urllib.parse import urlparse
 
 try:
@@ -138,11 +138,16 @@ async def search(ctx, *args, description="Searches e621 with given queries"):
 bot.remove_command('help')
 @bot.command(pass_context=True)
 async def help(ctx, *args):
-    await ctx.send("""```FurBot, basically just a simple bot that searches e621 and e926.\r\rCommands:\r
+    await ctx.send("""```FurBot, basically just a simple bot that searches e621 and e926.
+\r
+\rCommands:\r
     help: Shows this message\r
     search <search queries>: Searches e621 with given queries\r
     show <post id>: Show image with given post ID (Example Post ID: 1438576)\r
-    randompick: Replies a random pick from e621 or e926\rUse !e621 for NSFW result, or use !e926 for SFW result. (Using !furbot will force using !e621)\r\rNeed help? Something broke? Contact Error-#2194```""")
+    randompick: Replies a random pick from e621 or e926
+\rUse !e621 for NSFW result, or use !e926 for SFW result. (Using !furbot will force using !e621)
+\r
+\rNeed help? Something broke? Contact Error-#2194```""")
 
 @bot.command(pass_context=True)
 async def show(ctx, arg):
@@ -178,12 +183,6 @@ async def randompick(ctx, *args, description="Output random result"):
         netloc = "e926"
     else:
         netloc = "e621"
-    if netloc == "e621":
-        if not isinstance(ctx.channel, discord.DMChannel):
-            if not isinstance(ctx.channel, discord.GroupChannel):
-                if not ctx.channel.is_nsfw():
-                    await ctx.send("Cannot be used in non-NSFW channels!")
-                    return
     print("------")
     print("Got command")
     apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320'
@@ -198,14 +197,15 @@ async def randompick(ctx, *args, description="Output random result"):
 async def on_message(message):
     if message.author.id == bot.user.id:
          return
+    await asyncio.sleep(0.5)
     await bot.process_commands(message)
     msgurls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
     for msgurl in msgurls:
         parsed = urlparse(msgurl)
         if parsed.netloc == "e621.net":
-            if not isinstance(ctx.channel, discord.DMChannel):
-                if not isinstance(ctx.channel, discord.GroupChannel):
-                    if not ctx.channel.is_nsfw():
+            if not isinstance(message.channel, discord.DMChannel):
+                if not isinstance(message.channel, discord.GroupChannel):
+                    if not message.channel.is_nsfw():
                         return
             urlargs = parsed.path.split('/')
             try:
@@ -272,5 +272,19 @@ async def urban(ctx, args):
     embed.add_field(name="Example", value=result['example'], inline=True)
     embed.set_footer(text=u"👍 " + str(result['thumbs_up']) + " | " + u"👎 " + str(result['thumbs_down']))
     await ctx.send(embed=embed)
+
+async def find_channel(guild):
+    for c in guild.text_channels:
+        if not c.permissions_for(guild.me).send_messages:
+            continue
+        return c
+
+@bot.event
+async def on_guild_join(guild):
+    channel = await find_channel(guild)
+    await channel.send("~~Awoo!~~ Hewwo thewe, " + guild.name + """!\r
+I'm FurBot, a e621/e926 search bot! If you want to try me out, go ahead check out the help! The command is `!furbot help`.\r
+If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
+Thank you very much for using this bot!""")
 
 bot.run(token)
