@@ -81,7 +81,7 @@ async def processshowapi(apilink):
     async with aiohttp.ClientSession() as session:
         async with session.get(apilink, headers=headers) as r:
             if r.status == 200:
-                datajson = await r.json()
+                data = await r.json()
             else:
                 print("Invalid HTTP Response:" + str(r.status))
                 raise InvalidHTTPResponse()
