@@ -1,18 +1,20 @@
 import discord
 from discord.ext import commands
-import random, os, re, asyncio, aiohttp
+import random, os, re, asyncio, aiohttp, osuapi
 from urllib.parse import urlparse
 
 try:
     import config
     token = config.token
     owner = config.owner
+    osutoken = config.osutoken
 except ImportError:
     pass
 
 try:
     token = os.environ['DISCORD_TOKEN']
     owner = os.environ['DISCORD_OWNER']
+    osutoken = os.environ['OSU_TOKEN']
 except KeyError:
     pass
 
@@ -336,5 +338,21 @@ async def choose(ctx, *args):
         await ctx.send("You need to send at least 2 argument!")
         return
     await ctx.send(random.choice(choices) + ", of course!")
+
+@bot.group()
+async def osu(ctx, *arg):
+    if not arg:
+        if ctx.invoked_subcommand is None:
+            await ctx.send('Invalid osu command!')
+            return
+    args = ' '.join(arg)
+    username = str(args)
+    await osuapi.get_user(osutoken, username)
+    user = osuapi.get_user
+    embed=discord.Embed()
+    embed.set_thumbnail(url="https://a.ppy.sh/{}_1.png".format(user.id))
+    embed.add_field(name="Profile for {}".format(user.name), value="Mode: osu!standard", inline=False)
+    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(float(user.pp)), round(float(user.accuracy)), round(float(user.level))), inline=False)
+    await ctx.send(embed=embed)
 
 bot.run(token)
