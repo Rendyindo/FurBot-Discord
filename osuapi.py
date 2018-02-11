@@ -35,8 +35,8 @@ async def get_user(token, username, mode=0):
     get_user.events = user['events']
 
 async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
-    if beatmapid == "0":
-        if beatmapsetid == "0":
+    if not beatmapid:
+        if not beatmapsetid:
             raise NoMapID
         apilink = "https://osu.ppy.sh/api/get_beatmaps?k={}&m={}&s={}".format(token, mode, beatmapsetid)
     else:
