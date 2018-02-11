@@ -175,16 +175,10 @@ async def help(ctx, *args):
 
 @bot.command(pass_context=True)
 async def show(ctx, arg):
-    if not isinstance(ctx.channel, discord.DMChannel):
-        if not isinstance(ctx.channel, discord.GroupChannel):
-            if not ctx.channel.is_nsfw():
-                netloc = "e926"
-            else:
-                netloc = "e621"
     print("------")
     arg = str(arg)
     print("Got command with arg: " + arg)
-    apilink = 'https://' + netloc + '.net/post/show.json?id=' + arg
+    apilink = 'https://e621.net/post/show.json?id=' + arg
     try:
         await processshowapi(apilink)
     except ResultNotFound:
