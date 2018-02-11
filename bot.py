@@ -281,7 +281,7 @@ async def on_message(message):
             else:
                 await osuapi.get_beatmaps(osutoken, beatmapsetid=mapid)
             map = osuapi.get_beatmaps
-            embed=discord.Embed(title="{} - {}".format(map.artist, map.title), url=msgurl, description="Mapped by: {}".format(map.creator), color=0xa04db3)
+            embed=discord.Embed(title="{} - {} [{}]".format(map.artist, map.title, map.version), url=msgurl, description="Mapped by: {}".format(map.creator), color=0xa04db3)
             embed.set_thumbnail(url="https://b.ppy.sh/thumb/{}l.jpg".format(str(map.set_id)))
             embed.add_field(name="Map Status", value="Ranked: `{}` | Ranked date: `{}`".format(map.isranked, map.approved_date), inline=False)
             embed.add_field(name="Map Info", value="HP: `{}` | AR: `{}` | OD: `{}` | CS: `{}` | SR: `{}`".format(map.diff_drain, map.diff_approach, map.diff_overall, map.diff_size, round(map.difficultyrating, 2)), inline=False)
