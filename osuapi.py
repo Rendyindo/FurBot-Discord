@@ -42,7 +42,7 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
     else:
         apilink = "https://osu.ppy.sh/api/get_beatmaps?k={}&m={}&b={}".format(token, mode, beatmapid)
     async with aiohttp.ClientSession() as session:
-        async with session.get(apilink, headers=headers) as r:
+        async with session.get(apilink) as r:
             if r.status == 200:
                 datajson = await r.json()
             else:
