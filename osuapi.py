@@ -49,7 +49,7 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
                 print("Invalid HTTP Response:" + str(r.status))
                 raise InvalidHTTPResponse()
     map = datajson[0]
-    get_beatmap.diffs = len(datajson)
+    get_beatmaps.diffs = len(datajson)
     get_beatmaps.set_id = map['beatmapset_id']
     get_beatmaps.statusid = map['approved']
     get_beatmaps.total_length = map['total_length']
