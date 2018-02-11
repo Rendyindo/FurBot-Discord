@@ -15,23 +15,23 @@ async def get_user(token, username, mode=0):
     user = datajson[0]
     get_user.id = user['user_id']
     get_user.name = user['username']
-    get_user.count300 = user['count300']
-    get_user.count100 = user['count100']
-    get_user.count50 = user['count50']
-    get_user.playcount = user['playcount']
-    get_user.ranked_score = user['ranked_score']
-    get_user.total_score = user['total_score']
-    get_user.pp_rank = user['pp_rank']
-    get_user.level = user['level']
-    get_user.pp = user['pp_raw']
-    get_user.accuracy = user['accuracy']
-    get_user.count_rank_ss = user['count_rank_ss']
-    get_user.count_rank_ssh = user['count_rank_ssh']
-    get_user.count_rank_s = user['count_rank_s']
-    get_user.count_rank_sh = user['count_rank_sh']
-    get_user.count_rank_a = user['count_rank_a']
+    get_user.count300 = int(user['count300'])
+    get_user.count100 = int(user['count100'])
+    get_user.count50 = int(user['count50'])
+    get_user.playcount = int(user['playcount'])
+    get_user.ranked_score = int(user['ranked_score'])
+    get_user.total_score = int(user['total_score'])
+    get_user.pp_rank = int(user['pp_rank'])
+    get_user.level = float(user['level'])
+    get_user.pp = float(user['pp_raw'])
+    get_user.accuracy = float(user['accuracy'])
+    get_user.count_rank_ss = int(user['count_rank_ss'])
+    get_user.count_rank_ssh = int(user['count_rank_ssh'])
+    get_user.count_rank_s = int(user['count_rank_s'])
+    get_user.count_rank_sh = int(user['count_rank_sh'])
+    get_user.count_rank_a = int(user['count_rank_a'])
     get_user.country = user['country']
-    get_user.pp_country_rank = user['pp_country_rank']
+    get_user.pp_country_rank = int(user['pp_country_rank'])
     get_user.events = user['events']
 
 async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
@@ -50,8 +50,8 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
                 raise InvalidHTTPResponse()
     map = datajson[0]
     get_beatmaps.diffs = len(datajson)
-    get_beatmaps.set_id = map['beatmapset_id']
-    get_beatmaps.statusid = map['approved']
+    get_beatmaps.set_id = int(map['beatmapset_id'])
+    get_beatmaps.statusid = int(map['approved'])
     get_beatmaps.total_length = map['total_length']
     get_beatmaps.hit_length = map['hit_length']
     get_beatmaps.approved_date = map['approved_date']
@@ -59,12 +59,12 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
     get_beatmaps.artist = map['artist']
     get_beatmaps.title = map['title']
     get_beatmaps.creator = map['creator']
-    get_beatmaps.bpm = map['bpm']
+    get_beatmaps.bpm = int(map['bpm'])
     get_beatmaps.source = map['source']
     get_beatmaps.tags = map['tags']
-    get_beatmaps.genre_id = map['genre_id'] # Will implement string output soon
-    get_beatmaps.language_id = map['language_id'] # Same
-    get_beatmaps.favourite_count = map['favourite_count']
+    get_beatmaps.genre_id = int(map['genre_id']) # Will implement string output soon
+    get_beatmaps.language_id = int(map['language_id']) # Same
+    get_beatmaps.favourite_count = int(map['favourite_count'])
 
     # Beatmap statuses
     if get_beatmaps.statusid == "-2":
@@ -90,14 +90,14 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
     if get_beatmaps.diffs == 1:
         get_beatmaps.version = map['version']
         get_beatmaps.file_md5 = map['file_md5']
-        get_beatmaps.diff_size = map['diff_size']
-        get_beatmaps.diff_overall = map['diff_overall']
-        get_beatmaps.diff_approach = map['diff_approach']
+        get_beatmaps.diff_size = int(map['diff_size'])
+        get_beatmaps.diff_overall = int(map['diff_overall'])
+        get_beatmaps.diff_approach = int(map['diff_approach'])
         get_beatmaps.diff_drain = map['diff_drain']
         get_beatmaps.mode = map['mode']
-        get_beatmaps.playcount = map['playcount']
-        get_beatmaps.passcount = map['passcount']
-        get_beatmaps.max_combo = map['max_combo']
-        get_beatmaps.difficultyrating = map['difficultyrating']
-        get_beatmaps.id = map['beatmap_id']
+        get_beatmaps.playcount = int(map['playcount'])
+        get_beatmaps.passcount = int(map['passcount'])
+        get_beatmaps.max_combo = int(map['max_combo'])
+        get_beatmaps.difficultyrating = float(map['difficultyrating'])
+        get_beatmaps.id = int(map['beatmap_id'])
     
