@@ -372,7 +372,7 @@ async def osu(ctx, *arg):
     embed=discord.Embed()
     embed.set_thumbnail(url="https://a.ppy.sh/{}_1.png".format(user.id))
     embed.add_field(name="Profile for {}".format(user.name), value="Mode: osu!standard", inline=False)
-    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(float(user.pp)), round(float(user.accuracy)), round(float(user.level))), inline=False)
+    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
     await ctx.send(embed=embed)
 
 @bot.group()
@@ -388,7 +388,7 @@ async def taiko(ctx, *arg):
     embed=discord.Embed()
     embed.set_thumbnail(url="https://a.ppy.sh/{}_1.png".format(user.id))
     embed.add_field(name="Profile for {}".format(user.name), value="Mode: Taiko", inline=False)
-    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(float(user.pp)), round(float(user.accuracy)), round(float(user.level))), inline=False)
+    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
     await ctx.send(embed=embed)
 
 @bot.group()
@@ -404,7 +404,7 @@ async def catch(ctx, *arg):
     embed=discord.Embed()
     embed.set_thumbnail(url="https://a.ppy.sh/{}_1.png".format(user.id))
     embed.add_field(name="Profile for {}".format(user.name), value="Mode: osu!catch", inline=False)
-    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(float(user.pp)), round(float(user.accuracy)), round(float(user.level))), inline=False)
+    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
     await ctx.send(embed=embed)
 
 @bot.group()
@@ -420,7 +420,7 @@ async def mania(ctx, *arg):
     embed=discord.Embed()
     embed.set_thumbnail(url="https://a.ppy.sh/{}_1.png".format(user.id))
     embed.add_field(name="Profile for {}".format(user.name), value="Mode: osu!mania", inline=False)
-    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(float(user.pp)), round(float(user.accuracy)), round(float(user.level))), inline=False)
+    embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
     await ctx.send(embed=embed)
 
 bot.run(token)
