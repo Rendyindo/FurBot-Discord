@@ -81,6 +81,10 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
         get_beatmaps.status = "Qualified"
     if get_beatmaps.statusid == "4":
         get_beatmaps.status = "Loved"
+    if get_beatmaps.statusid > 0:
+        get_beatmaps.isranked == "True"
+    else:
+        get_beatmaps.isranked == "False"
 
     # Difficulty spesific info
     if get_beatmaps.diffs == 1:

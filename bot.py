@@ -267,6 +267,26 @@ async def on_message(message):
             except InvalidHTTPResponse:
                 return
             await message.channel.send("""Artist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
+        if parsed.netloc == "osu.ppy.sh":
+            urlargs = parsed.path.split('/')
+            try:
+                if not urlargs[1]:
+                    return
+                maptype = urlargs[1]
+                mapid = urlargs[2]
+            except IndexError:
+                return
+            if maptype == "b":
+                await osuapi.get_beatmaps(osutoken, beatmapid=mapid)
+            else:
+                await osuapi.get_beatmaps(osutoken, beatmapsetid=mapid)
+            map = osuapi.get_beatmaps
+            embed=discord.Embed(title="{} - {}".format(map.artist, map.title), url=msgurl, description="Mapped by: {}".format(map.creator), color=0xa04db3)
+            embed.set_thumbnail(url="https://b.ppy.sh/thumb/{}l.jpg".format(mapid))
+            embed.add_field(name="Map Status", value="Ranked: `{}` | Ranked date: `{}`".format(map.isranked, map.approved_date), inline=False)
+            embed.add_field(name="Map Info", value="HP: `{}` | AR: `{}` | OD: `{}` | CS: `{}` | SR: `{}`".format(map.diff_drain, map.diff_approach, map.diff_overall, map.diff_size, map.difficultyrating), inline=False)
+            await message.channel.send(embed=embed)
+            
 
 @bot.command(pass_context=True)
 async def avatar(ctx, message):
