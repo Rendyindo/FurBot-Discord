@@ -1,0 +1,69 @@
+<div class="navigasi" id="navigasi">
+	<div class="normal-navigasi">
+	<ul>
+		<div class="left-align align">
+			<li><img src="images/White_Logo_Wolf.png" class="img-50px"> Furbot</li>
+		</div>
+
+		<div class="right-align align">
+			<li><a href="">Menu</a></li>
+			<li><a href="">Menu</a></li>
+			<li><a href="">Menu</a></li>
+		</div>
+	</ul>
+	</div>
+
+	<div class="responsive-navigasi">
+		<div class="left-align align">
+			<ul>
+			<li><img src="images/White_Logo_Wolf.png" class="img-30px"> Furbot</li>
+			</ul>
+		</div>
+
+		<div class="right-align align">
+			<a href="#openit"><div class="fas fa-cog fa-spin" id="open-nav"></div></a>
+		</div>
+		</div>
+	</div>
+</div>
+
+<div class="menu-responsive">
+	<ul>
+		<div class="left-align" style="color: black; border-bottom: 2px solid lightgrey;">
+		<li><img src="images/Black_Logo_Wolf.png" class="img-30px"> Furbot</li>
+		</div>
+		<div class="hovered-menu">
+		<a href=""><li>Menu</li></a>
+		<a href=""><li>Menu</li></a>
+		<a href=""><li>Menu</li></a>
+		<a href="#closeit" id="close-nav"><li>Close Menu</li></a>
+		</div>
+	</ul>
+</div>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+  		var scrollTop = 0;
+		$(window).scroll(function(){
+			scrollTop = $(window).scrollTop();
+			 $('.counter').html(scrollTop);
+		    
+			if (scrollTop >= 530) {
+				$('.navigasi').addClass('scrolled-nav');
+			} else if (scrollTop < 530) {
+				$('.navigasi').removeClass('scrolled-nav');
+			} 
+		}); 
+	});
+
+	$(document).ready(function(){
+    	$("#close-nav").click(function(){
+        	$('.menu-responsive').hide(300);
+    	});
+    $("#open-nav").click(function(){
+    		$('.menu-responsive').show(300);
+    	});
+	});
+</script>

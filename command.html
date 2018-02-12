@@ -1,0 +1,193 @@
+<html>
+	<head>
+		<title>FurBot</title>
+		<!-- ================================================== -->
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<!-- ================================================== -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<!-- ================================================== -->
+		<link rel="stylesheet" type="text/css" href="vendor/Animate.css">
+		<!-- ================================================== -->
+		<link rel="stylesheet" type="text/css" href="vendor/FontAwesome/css/fontawesome-all.css">
+		<!-- ================================================== -->
+		<script src="vendor/Jquery.js"></script>
+		<!-- ================================================== -->
+		<script src="vendor/Wow.js"></script>
+		<script>
+            new WOW().init();
+        </script>
+		<!-- ================================================== -->
+	</head>
+
+	<body>
+		<div id="navigasi"></div>
+		<!-- ================================================== -->
+		<link rel="stylesheet" type="text/css" href="vendor/Bootstrap/css/bootstrap.css">
+		<!-- ================================================== -->
+		<div class="navbar-ghost"></div>
+		<!-- ================================================== -->
+		<div class="cmd-first-part">
+			<div class="container m-t-40">
+				<div class="row">
+				
+				<div class="col-md-12 text-black-reduced bold-text fs-30 wow flipInX">Command Info<hr></div>
+
+				</div>
+				<div class="row">
+					
+					<div class="col-md-12 text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ante magna, bibendum id tristique quis, porttitor vel mi. Suspendisse aliquam purus vel luctus pretium. Praesent sit amet nisl lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ante magna, bibendum id tristique quis, porttitor vel mi. Suspendisse aliquam purus vel luctus pretium. Praesent sit amet nisl lorem.</div>
+
+				</div>
+
+				<!-- ================================================== -->
+				<div class="row button-li m-t-25">
+					<div class="col-md-12">
+					<select class="form-control" name="category" id="category">
+						<option value="default">Select Categories</option>
+						<option value="general_opt">General</option>
+						<option value="osu_opt">osu!</option>
+						<option value="lewd_opt">Lewd</option>
+					</select>
+					</div>
+				</div>
+				<!-- ================================================== -->
+				<div class="row m-t-25 table-empty" id="select-category">
+					<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<td>Select a category to proceed</td>
+							</tr>
+						</table>
+					</div>
+					</div>
+				</div>
+				<!-- ================================================== -->
+				<div class="row m-t-25" id="general">
+					<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<td>Text</td>
+								<td>Text</td>
+								<td>Text</td>
+							</tr>
+						</table>
+					</div>
+					</div>
+				</div>
+				<!-- ================================================== -->
+				<div class="row m-t-25" id="osu">
+					<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<td>Text2</td>
+								<td>Text2</td>
+								<td>Text2</td>
+							</tr>
+						</table>
+					</div>
+					</div>
+				</div>
+				<!-- ================================================== -->
+				<div class="row m-t-25" id="lewd">
+					<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<td>Text3</td>
+								<td>Text3</td>
+								<td>Text3</td>
+							</tr>
+						</table>
+					</div>
+					</div>
+				</div>
+				<!-- ================================================== -->
+
+			</div>
+		</div>
+
+		<!-- ================================================== -->
+		<div class="cmd-second-part p-t-80 p-b-80">
+			<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+				<div class="cmd-title-4 text-black-reduced bold-text fs-35 text-center">
+					FurBot Discord Help Server / Invite Me
+				</div>
+
+				<div class="button-sub m-t-20">
+					<center><a href=""><button class="btn btn-info">Join</button></a> 
+					<a href=""><button class="btn btn-info">Invite</button></a></center>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<!-- ================================================== -->
+		<div id="footer"></div>
+		<!-- ================================================== -->
+	</body> 
+</html>
+
+<!-- ================================================== -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#navigasi").load("pages/navbar_2.html")
+		$("#footer").load("pages/footer.html");
+	});
+	// ==================================================
+	$(function() {
+	    $('#category').change(function(){
+	        if($('#category').val() == 'default') {
+	            $('#select-category').show(); 
+	        } else {
+	            $('#select-category').hide(); 
+	        } 
+	    });
+	});
+	// ==================================================
+	$(function() {
+    $('#general').hide(); 
+	    $('#category').change(function(){
+	        if($('#category').val() == 'general_opt') {
+	            $('#general').show(); 
+	        } else {
+	            $('#general').hide(); 
+	        } 
+	    });
+	});
+	// ==================================================
+	$(function() {
+    $('#osu').hide(); 
+	    $('#category').change(function(){
+	        if($('#category').val() == 'osu_opt') {
+	            $('#osu').show(); 
+	        } else {
+	            $('#osu').hide(); 
+	        } 
+	    });
+	});
+	// ==================================================
+	$(function() {
+    $('#lewd').hide(); 
+	    $('#category').change(function(){
+	        if($('#category').val() == 'lewd_opt') {
+	            $('#lewd').show(); 
+	        } else {
+	            $('#lewd').hide(); 
+	        } 
+	    });
+	});
+	// ==================================================
+</script>
+<!-- ================================================== -->
+<style type="text/css">
+	.navbar-ghost {
+		background: transparent;
+		padding: 35px;
+	}
+	.
+</style>
