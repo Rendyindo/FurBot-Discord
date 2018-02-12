@@ -295,8 +295,13 @@ async def urban(ctx, *args):
     args = ' '.join(args)
     args = str(args)
     apilink = "http://api.urbandictionary.com/v0/define?term=" + args
-    r = requests.get(url=apilink, headers=headers)
-    datajson = r.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(apilink, headers=headers) as r:
+            if r.status == 200:
+                datajson = await r.json()
+            else:
+                print("Invalid HTTP Response:" + str(r.status))
+                raise InvalidHTTPResponse()
     listcount = 0
     try:
         while datajson['list'][listcount]['definition'].count('') > 1001:
