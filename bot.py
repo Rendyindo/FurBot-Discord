@@ -171,7 +171,7 @@ async def e926(ctx, *args):
 bot.remove_command('help')
 @bot.command(pass_context=True)
 async def help(ctx, *args):
-    await ctx.send("Go ahead read the README here! https://github.com/Rendyindo/FurBot-Discord")
+    await ctx.send("Go ahead read the README here! https://furbot.rorre.me/command")
 
 @bot.command(pass_context=True)
 async def show(ctx, arg):
