@@ -34,12 +34,14 @@
 				<div class="image-header">
 					<center><img src="images/White_Logo_Wolf.png" class="img-1 img-300px m-t-10 round-border wow flipInX"></center>
 				</div>
-
-				<div class="button-header">
-					<center><a href="#scrolling" id="scrolldown"><img src="images/White_Arrow_Double.png" class="img-2 img-30px m-t-100"></a></center>
-				</div>
 			</div>
+
+			<div class="button-header">
+				<center><a href="#scrolling" id="scrolldown"><img src="images/White_Arrow_Double.png" class="img-2 img-30px m-t-100"></a></center>
+			</div>
+
 		</div>
+
 		<div id="border-scroll"> </div>
 		<!-- ================================================== -->
 		<div class="second-part p-t-20 p-b-20">
@@ -98,7 +100,7 @@
 				Invite Me
 			</div>
 
-			<div class="img-invite"><center><img src="images/Discord-Logo.png" class="img-200px border-2px-black round-border wow flipInX"></center></div>
+			<div class="img-invite"><center><img src="images/Discord-Logo.png" class="img-200px round-border wow flipInX"></center></div>
 
 			<div class="button-sub m-t-20 wow flipInX">
 				<center><a href=""><button class="btn btn-info">Invite</button></a></center>
@@ -118,16 +120,16 @@
 	});
 
 
-	// $("#scrolldown").click(function() {
-	//     $('html, body').animate({
-	//         scrollTop: $("#border-scroll").offset().top
-	//     }, 2000);
-	// });
-
-	$(document).ready(function() {
-	    $("#scrolldown").click(function(event){
-	        $('html, body').animate({scrollTop: '+=600pt'}, 2000);
-	    });
+	$("#scrolldown").click(function() {
+	    $('html, body').animate({
+	        scrollTop: $("#border-scroll").offset().top
+	    }, 2000);
 	});
+
+	// $(document).ready(function() {
+	//     $("#scrolldown").click(function(event){
+	//         $('html, body').animate({scrollTop: '+=600pt'}, 2000);
+	//     });
+	// });
 </script>
 <!-- ================================================== -->

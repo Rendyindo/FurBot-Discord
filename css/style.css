@@ -115,6 +115,18 @@ li a:hover {
 	position: absolute;
 	width: 100%;
 }
+.button-header {
+	position: absolute;
+	width: 100%;
+	top: 70%;
+}
+#border-scroll {
+	padding: 10px;
+	position: absolute;
+	z-index: 5;
+	top: 91%;
+	width: 100%;
+}
 /*==================================================*/
 .second-part {
 	height: auto;
@@ -168,7 +180,11 @@ li a:hover {
 	}
 }
 /*==================================================*/
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 490px) {
+	.navigasi {
+		background :#2c2a37;
+		padding: 5px;
+	}
 	.title-sub-1 {
 		font-size: 20px;
 	}
@@ -183,9 +199,6 @@ li a:hover {
 	.img-3 {
 		width: 250px;
 		height: 250px;
-	}
-	.img-2 {
-		margin-top: 100px;
 	}
 	.button-sub button {
 		width: 100px;
