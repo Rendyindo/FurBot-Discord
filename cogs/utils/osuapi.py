@@ -111,8 +111,8 @@ def parse_mods(int):
                  if value is not False}
     parse_mods.EnabledMods = EnabledModsList.keys()
 
-async def get_user_recent(token, username, mode=0):
-    apilink = "https://osu.ppy.sh/api/get_user?k={}&m={}&u={}".format(token, mode, username)
+async def get_user_recent(token, username):
+    apilink = "https://osu.ppy.sh/api/get_user_recent?k={}&u={}".format(token, username)
     async with aiohttp.ClientSession() as session:
         async with session.get(apilink) as r:
             if r.status == 200:
@@ -136,4 +136,3 @@ async def get_user_recent(token, username, mode=0):
     get_user_recent.date = play['date']
     get_user_recent.rank = play['rank']
     get_user_recent.enabled_mods = parse_mods(get_user_recent.enabled_mods_bitmask)
-    
