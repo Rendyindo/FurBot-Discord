@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 
 processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
-msg = """Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link
+msg = """Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link
 
 
 class Furry():
@@ -21,6 +21,7 @@ class Furry():
                     return
         args = ' '.join(args)
         args = str(args)
+        netloc = "e621"
         print("------")
         print("Got command with args: " + args)
         apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
@@ -32,13 +33,13 @@ class Furry():
         except InvalidHTTPResponse:
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
-        await ctx.send("""Post link: `https://e621.net/post/show/""" + processapi.imgid + """/`\r\nArtist: """ + processapi.imgartist + """\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
-
+        await ctx.send(msg)
+        
     @commands.command(pass_context=True)
     async def e926(self, ctx, *args):
         args = ' '.join(args)
         args = str(args)
-        netloc = e926
+        netloc = "e926"
         print("------")
         print("Got command with args: " + args)
         apilink = 'https://e926.net/post/index.json?tags=' + args + '&limit=320'
