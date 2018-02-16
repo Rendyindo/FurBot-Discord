@@ -7,12 +7,8 @@ class osu():
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def osu(self, ctx, *arg):
-        if not arg:
-            if ctx.invoked_subcommand is None:
-                await ctx.send('Invalid osu command!')
-                return
         args = ' '.join(arg)
         username = str(args)
         await osuapi.get_user(osutoken, username)
@@ -23,12 +19,8 @@ class osu():
         embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
         await ctx.send(embed=embed)
 
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def taiko(self, ctx, *arg):
-        if not arg:
-            if ctx.invoked_subcommand is None:
-                await ctx.send('Invalid taiko command!')
-                return
         args = ' '.join(arg)
         username = str(args)
         await osuapi.get_user(osutoken, username, mode=1)
@@ -39,12 +31,8 @@ class osu():
         embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
         await ctx.send(embed=embed)
 
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def catch(self, ctx, *arg):
-        if not arg:
-            if ctx.invoked_subcommand is None:
-                await ctx.send('Invalid catch command!')
-                return
         args = ' '.join(arg)
         username = str(args)
         await osuapi.get_user(osutoken, username, mode=2)
@@ -55,12 +43,8 @@ class osu():
         embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
         await ctx.send(embed=embed)
 
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def mania(self, ctx, *arg):
-        if not arg:
-            if ctx.invoked_subcommand is None:
-                await ctx.send('Invalid mania command!')
-                return
         args = ' '.join(arg)
         username = str(args)
         await osuapi.get_user(osutoken, username, mode=3)

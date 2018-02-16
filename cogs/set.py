@@ -10,9 +10,8 @@ class set:
     
     @commands.group()
     async def set(self, ctx):
-        if not ctx.message.content:
-            if ctx.invoked_subcommand is None:
-                await ctx.send('Invalid mania command!')
+        if ctx.invoked_subcommand is None:
+            await ctx.send('Invalid setting command!')
 
     @set.command(name="osu")
     async def _osu(self, ctx, *arg):
