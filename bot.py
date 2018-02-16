@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import random, os, re, asyncio, aiohttp, cogs.utils.osuapi, traceback, sys
+import random, os, re, asyncio, aiohttp, cogs.utils.osuapi, traceback, sys, urllib, aioftp
 from urllib.parse import urlparse
 
 try:
@@ -8,6 +8,9 @@ try:
     token = config.token
     owner = config.owner
     osutoken = config.osutoken
+    ftp_server = config.ftp_server
+    ftp_password = config.ftp_password
+    ftp_username = config.ftp_username
 except ImportError:
     pass
 
@@ -15,6 +18,9 @@ try:
     token = os.environ['DISCORD_TOKEN']
     owner = os.environ['DISCORD_OWNER']
     osutoken = os.environ['OSU_TOKEN']
+    ftp_server = os.environ['FTP_SERVER']
+    ftp_password = os.environ['FTP_PASSWORD']
+    ftp_username = os.environ['FTP_USERNAME']
 except KeyError:
     pass
 
@@ -41,6 +47,11 @@ class FurBot(commands.Bot):
             except Exception as e:
                 print("Failed to load extension {extension}.")
                 traceback.print_exc()
+        if ftp_server:
+            try:
+                urllib.request.urlretrieve('ftp://{}:{}@{}/user.ini'.format(ftp_username, ftp_password, ftp_server), 'user.ini')
+            except urllib.error.URLError:
+                print("WARNING! Cannot download user.ini file!")
 
     async def on_ready(self):
         print('Logged in as')
@@ -49,7 +60,6 @@ class FurBot(commands.Bot):
         print('------')
         self.remove_command('help')
         await self.change_presence(game=discord.Game(name='f!help'))
-
     
     @commands.command()
     async def help(self, ctx, *args):
@@ -138,6 +148,19 @@ class FurBot(commands.Bot):
     If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
     Thank you very much for using this bot!""")
 
+    async def config_sync(self, server, username, password):
+        Continue = True
+        while Continue:
+            async with aioftp.ClientSession(server, user=username, password=password) as client:
+                print("Syncronizing config file")
+                try:
+                    await client.upload("user.ini")
+                except:
+                    print("An error occured during upload.")
+                finally:
+                    print("Done!")
+                await asyncio.sleep(30)
 
 bot = FurBot()
+bot.loop.create_task(FurBot().config_sync(ftp_server, ftp_username, ftp_password))
 bot.run(token)
