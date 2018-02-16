@@ -5,7 +5,6 @@ from urllib.parse import urlparse
 
 processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
-msg = """Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link
 
 class ResultNotFound(Exception):
     pass
@@ -38,7 +37,7 @@ class Furry():
         except InvalidHTTPResponse:
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
-        await ctx.send(msg)
+        await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
         
     @commands.command(pass_context=True)
     async def e926(self, ctx, *args):
@@ -56,7 +55,7 @@ class Furry():
         except InvalidHTTPResponse:
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
-        await ctx.send(msg)
+        await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
     @commands.command(pass_context=True)
     async def show(self, ctx, arg):
@@ -93,7 +92,7 @@ class Furry():
         except InvalidHTTPResponse:
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
-        await ctx.send(msg)
+        await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
 
 def setup(bot):
     bot.add_cog(Furry(bot))
