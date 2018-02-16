@@ -1,4 +1,5 @@
 import aiohttp
+from cogs.utils.mod import Mod
 
 class InvalidHTTPResponse(Exception):
     pass
@@ -103,4 +104,36 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
         get_beatmaps.max_combo = int(map['max_combo'])
         get_beatmaps.difficultyrating = float(map['difficultyrating'])
         get_beatmaps.id = int(map['beatmap_id'])
+
+def parse_mods(int):
+    ModList = Mod.unpack(256)
+    EnabledModsList = {key: value for key, value in dic.items() 
+                 if value is not False}
+    parse_mods.EnabledMods = EnabledModsList.keys()
+
+async def get_user_recent(token, username, mode=0):
+    apilink = "https://osu.ppy.sh/api/get_user?k={}&m={}&u={}".format(token, mode, username)
+    async with aiohttp.ClientSession() as session:
+        async with session.get(apilink) as r:
+            if r.status == 200:
+                datajson = await r.json()
+            else:
+                print("Invalid HTTP Response:" + str(r.status))
+                raise InvalidHTTPResponse()
+    play = datajson[0]
+    get_user_recent.beatmap_id = play['beatmap_id']
+    get_user_recent.score = play['score']
+    get_user_recent.maxcombo = play['maxcombo']
+    get_user_recent.count50 = play['count50']
+    get_user_recent.count100 = play['count100']
+    get_user_recent.count300 = play['count300']
+    get_user_recent.countmiss = play['countmiss']
+    get_user_recent.countkatu = play['countkatu']
+    get_user_recent.countgeki = play['countgeki']
+    get_user_recent.perfect = play['perfect']
+    get_user_recent.enabled_mods_bitmask = play['enabled_mods']
+    get_user_recent.user_id = play['user_id']
+    get_user_recent.date = play['date']
+    get_user_recent.rank = play['rank']
+    get_user_recent.enabled_mods = parse_mods(get_user_recent.enabled_mods_bitmask)
     
