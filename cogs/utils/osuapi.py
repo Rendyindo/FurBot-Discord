@@ -135,9 +135,9 @@ async def get_user_recent(token, username):
     get_user_recent.user_id = play['user_id']
     get_user_recent.date = play['date']
     get_user_recent.rank = play['rank']
-    if get_user_recent.perfect = "0":
+    if get_user_recent.perfect == "0":
         get_user_recent.FC = False
-    if get_user_recent.perfect = "1":
+    if get_user_recent.perfect == "1":
         get_user_recent.FC = True
     parse_mods(get_user_recent.enabled_mods_bitmask)
     get_user_recent.enabled_mods = parse_mods.EnabledMods
