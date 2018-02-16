@@ -94,9 +94,9 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
     if get_beatmaps.diffs == 1:
         get_beatmaps.version = map['version']
         get_beatmaps.file_md5 = map['file_md5']
-        get_beatmaps.diff_size = int(map['diff_size'])
-        get_beatmaps.diff_overall = int(map['diff_overall'])
-        get_beatmaps.diff_approach = int(map['diff_approach'])
+        get_beatmaps.diff_size = float(map['diff_size'])
+        get_beatmaps.diff_overall = float(map['diff_overall'])
+        get_beatmaps.diff_approach = float(map['diff_approach'])
         get_beatmaps.diff_drain = map['diff_drain']
         get_beatmaps.mode = map['mode']
         get_beatmaps.playcount = int(map['playcount'])
