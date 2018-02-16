@@ -107,7 +107,7 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
 
 def parse_mods(int):
     ModList = Mod.unpack(256)
-    EnabledModsList = {key: value for key, value in dic.items() 
+    EnabledModsList = {key: value for key, value in ModList.items() 
                  if value is not False}
     parse_mods.EnabledMods = EnabledModsList.keys()
 
@@ -135,4 +135,5 @@ async def get_user_recent(token, username):
     get_user_recent.user_id = play['user_id']
     get_user_recent.date = play['date']
     get_user_recent.rank = play['rank']
-    get_user_recent.enabled_mods = parse_mods(get_user_recent.enabled_mods_bitmask)
+    parse_mods(get_user_recent.enabled_mods_bitmask)
+    get_user_recent.enabled_mods = parse_mods.EnabledMods
