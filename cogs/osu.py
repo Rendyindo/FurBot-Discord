@@ -1,7 +1,8 @@
-import discord, cogs.utils.osuapi
+import discord, cogs.utils.osuapi, config
 from discord.ext import commands
 
 osuapi = cogs.utils.osuapi
+osutoken = config.osutoken
 
 class osu():
     def __init__(self, bot):
