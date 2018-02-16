@@ -3,7 +3,17 @@ from discord.ext import commands
 from configparser import SafeConfigParser
 
 osuapi = cogs.utils.osuapi
-osutoken = config.osutoken
+
+try:
+    osutoken = config.osutoken
+except ImportError:
+    pass
+
+try:
+    osutoken = os.environ['OSU_TOKEN']
+except KeyError:
+    pass
+
 parser = SafeConfigParser()
 
 class osu():
