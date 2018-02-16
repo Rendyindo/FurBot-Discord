@@ -3,6 +3,9 @@ import aiohttp
 class InvalidHTTPResponse(Exception):
     pass
 
+class NoMapID(Exception):
+    pass
+
 async def get_user(token, username, mode=0):
     apilink = "https://osu.ppy.sh/api/get_user?k={}&m={}&u={}".format(token, mode, username)
     async with aiohttp.ClientSession() as session:
