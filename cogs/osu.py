@@ -1,4 +1,4 @@
-import discord, cogs.utils.osuapi
+import discord, cogs.utils.osuapi, os
 from discord.ext import commands
 from configparser import SafeConfigParser
 
