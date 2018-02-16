@@ -89,5 +89,24 @@ class osu():
         embed.add_field(name="Player Info", value="Rank: `{}` | pp: `{}` | Accuracy: `{}` | Level: `{}`".format(user.pp_rank, round(user.pp), round(user.accuracy), round(user.level)), inline=False)
         await ctx.send(embed=embed)
 
+    @osu.command()
+    async def recent(self, ctx, *arg):
+        if arg:
+            args = ' '.join(arg)
+            username = str(args)
+        else:
+            userid = ctx.message.author.id
+            parser.read('user.ini')
+            username = parser.get(str(userid), "osu_username")
+        await osuapi.get_user_recent(osutoken, username)
+        play = osuapi.get_user_recent
+        await osuapi.get_beatmaps(osutoken, beatmapid=play.beatmap_id)
+        map = osuapi.get_beatmaps
+        embed=discord.Embed(title="{} - {} [{}]".format(map.artist, map.title, map.version), url=msgurl, description="Played by: {}".format(username), color=0x52b34d)
+        embed.set_thumbnail(url="https://b.ppy.sh/thumb/{}l.jpg".format(str(map.set_id)))
+        embed.add_field(name="Play info", value="Mods: {} | Score: {} | FC: {} | Combo: {}".format(get_user_recent.enabled_mods, get_user_recent.score, get_user_recent.FC, get_user_recent.maxcombo), inline=False)
+        embed.add_field(name="", value="Date Played: {}".format(get_user_recent.date), inline=False)
+        await message.channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(osu(bot))
