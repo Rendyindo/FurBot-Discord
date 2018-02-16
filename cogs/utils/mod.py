@@ -1,6 +1,6 @@
 from collections import namedtuple
 
-from bit_enum import BitEnum
+from cogs.utils.bit_enum import BitEnum
 
 class Mod(BitEnum):
     """The mods in osu!
