@@ -1,10 +1,11 @@
-import discord, cogs.utils.osuapi, config
+import discord, cogs.utils.osuapi
 from discord.ext import commands
 from configparser import SafeConfigParser
 
 osuapi = cogs.utils.osuapi
 
 try:
+    import config
     osutoken = config.osutoken
 except ImportError:
     pass
