@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import random, os, re, asyncio, aiohttp, cogs.utils.osuapi, traceback, sys, urllib, aioftp
+import random, os, re, asyncio, aiohttp, cogs.utils.osuapi, traceback, sys, urllib, aioftp, cogs.utils.eapi
 from urllib.parse import urlparse
 
 try:
@@ -31,6 +31,10 @@ initial_extensions = (
     'cogs.osu',
     'cogs.set'
 )
+
+osuapi = cogs.utils.osuapi
+processapi = cogs.utils.eapi.processapi
+processshowapi = cogs.utils.eapi.processshowapi
 
 class ResultNotFound(Exception):
     pass
