@@ -106,7 +106,7 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
         get_beatmaps.id = int(map['beatmap_id'])
 
 def parse_mods(int):
-    ModList = Mod.unpack(256)
+    ModList = Mod.unpack(int)
     EnabledModsList = {key: value for key, value in ModList.items() 
                  if value is not False}
     parse_mods.EnabledMods = EnabledModsList.keys()
