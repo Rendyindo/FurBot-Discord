@@ -5,6 +5,7 @@ class InvalidHTTPResponse(Exception):
 
 async def get_user(token, username, mode=0):
     apilink = "https://osu.ppy.sh/api/get_user?k={}&m={}&u={}".format(token, mode, username)
+    print(apilink)
     async with aiohttp.ClientSession() as session:
         async with session.get(apilink) as r:
             if r.status == 200:
