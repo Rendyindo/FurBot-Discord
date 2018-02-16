@@ -24,34 +24,43 @@ async def processapi(apilink):
     print("Shuffling data from json")
     data = shuffle(datajson)
     print("Parsing data from json")
-    fileurl = data[0]['file_url']
-    imgartists = data[0]['artist']
-    imgartist = ', '.join(imgartists)
-    imgtag = data[0]['tags']
-    imgtag = imgtag.split(" ")
-    tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
-    imgtags = tags[0]
-    imgrate = data[0]['rating']
-    if imgrate == "e":
-        processapi.imgrating = "Explicit"
-    if imgrate == "s":
-        processapi.imgrating = "Safe"
-    if imgrate == "q":
-        processapi.imgrating = "Mature/Questionable"
-    imgsources = data[0]['source']
-    imgsource = str(imgsources)
-    if imgartist == "None":
-        processapi.imgartist = "Unspecified"
-    else:
-        processapi.imgartist = imgartist
-    if imgsource == "None":
-        processapi.imgsource = "Unspecified"
-    else:
-        processapi.imgsource = imgsource
-    processapi.imgtags = str(' '.join(imgtags))
-    imgid = data[0]['id']
-    processapi.imgid = str(imgid)
-    processapi.file_link = str(fileurl).replace('None', '')
+    imagenum = 0
+    while ".swf" in data[imagenum]['file_link']:
+        imagenum += 1
+    while ".webm" in data[imagenum]['file_link']:
+        imagenum += 1
+    try:
+        dataimage = data[imagenum]
+        fileurl = dataimage['file_url']
+        imgartists = dataimage['artist']
+        imgartist = ', '.join(imgartists)
+        imgtag = dataimage['tags']
+        imgtag = imgtag.split(" ")
+        tags = [imgtag[x:x+25] for x in range(0, len(imgtag), 25)]
+        imgtags = tags[0]
+        imgrate = dataimage['rating']
+        if imgrate == "e":
+            processapi.imgrating = "Explicit"
+        if imgrate == "s":
+            processapi.imgrating = "Safe"
+        if imgrate == "q":
+            processapi.imgrating = "Mature/Questionable"
+        imgsources = dataimage['source']
+        imgsource = str(imgsources)
+        if imgartist == "None":
+            processapi.imgartist = "Unspecified"
+        else:
+            processapi.imgartist = imgartist
+        if imgsource == "None":
+            processapi.imgsource = "Unspecified"
+        else:
+            processapi.imgsource = imgsource
+        processapi.imgtags = str(' '.join(imgtags))
+        imgid = dataimage['id']
+        processapi.imgid = str(imgid)
+        processapi.file_link = str(fileurl).replace('None', '')
+    except IndexError:
+        raise ResultNotFound()
 
 async def processshowapi(apilink):
     print("API Link: " + apilink)
