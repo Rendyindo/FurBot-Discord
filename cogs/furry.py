@@ -7,6 +7,11 @@ processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
 msg = """Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link
 
+class ResultNotFound(Exception):
+    pass
+
+class InvalidHTTPResponse(Exception):
+    pass
 
 class Furry():
     def __init__(self, bot):
