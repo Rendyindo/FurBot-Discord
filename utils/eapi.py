@@ -4,6 +4,11 @@ def shuffle(arr):
     random.shuffle(arr)
     return arr
 
+headers = {
+    'User-Agent': 'SearchBot/1.0 (by Error- on e621)'
+}
+
+
 async def processapi(apilink):
     print("API Link: " + apilink)
     print("Requesting json from API")
