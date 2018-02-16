@@ -1,8 +1,10 @@
 import discord, cogs.utils.osuapi, config
 from discord.ext import commands
+from configparser import SafeConfigParser
 
 osuapi = cogs.utils.osuapi
 osutoken = config.osutoken
+parser = SafeConfigParser()
 
 class osu():
     def __init__(self, bot):
@@ -10,8 +12,13 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def osu(self, ctx, *arg):
-        args = ' '.join(arg)
-        username = str(args)
+        if arg:
+            args = ' '.join(arg)
+            username = str(args)
+        else:
+            userid = ctx.message.author.id
+            parser.read('user.ini')
+            username = parser.get(str(userid), "osu_username")
         await osuapi.get_user(osutoken, username)
         user = osuapi.get_user
         embed=discord.Embed()
@@ -22,6 +29,13 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def taiko(self, ctx, *arg):
+        if arg:
+            args = ' '.join(arg)
+            username = str(args)
+        else:
+            userid = ctx.message.author.id
+            parser.read('user.ini')
+            username = parser.get(str(userid), "osu_username")
         args = ' '.join(arg)
         username = str(args)
         await osuapi.get_user(osutoken, username, mode=1)
@@ -34,6 +48,13 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def catch(self, ctx, *arg):
+        if arg:
+            args = ' '.join(arg)
+            username = str(args)
+        else:
+            userid = ctx.message.author.id
+            parser.read('user.ini')
+            username = parser.get(str(userid), "osu_username")
         args = ' '.join(arg)
         username = str(args)
         await osuapi.get_user(osutoken, username, mode=2)
@@ -46,6 +67,13 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def mania(self, ctx, *arg):
+        if arg:
+            args = ' '.join(arg)
+            username = str(args)
+        else:
+            userid = ctx.message.author.id
+            parser.read('user.ini')
+            username = parser.get(str(userid), "osu_username")
         args = ' '.join(arg)
         username = str(args)
         await osuapi.get_user(osutoken, username, mode=3)
