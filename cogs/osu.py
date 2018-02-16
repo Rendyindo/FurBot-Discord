@@ -105,7 +105,7 @@ class osu():
         embed=discord.Embed(title="{} - {} [{}]".format(map.artist, map.title, map.version), url="https://osu.ppy.sh/b/{}".format(play.beatmap_id), description="Played by: {}".format(username), color=0x52b34d)
         embed.set_thumbnail(url="https://b.ppy.sh/thumb/{}l.jpg".format(str(map.set_id)))
         embed.add_field(name="Play info", value="Mods: {} | Score: {} | FC: {} | Combo: {}".format(play.enabled_mods, play.score, play.FC, play.maxcombo), inline=False)
-        embed.add_field(name="", value="Date Played: {}".format(play.date), inline=False)
+        embed.add_field(name=" ", value="Date Played: {}".format(play.date), inline=False)
         await ctx.send(embed=embed)
 
 def setup(bot):
