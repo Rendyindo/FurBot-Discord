@@ -23,6 +23,7 @@ initial_extensions = (
     'cogs.furry',
     'cogs.general',
     'cogs.osu',
+    'cogs.set'
 )
 
 class ResultNotFound(Exception):
