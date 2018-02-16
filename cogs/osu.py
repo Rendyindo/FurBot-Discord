@@ -47,8 +47,6 @@ class osu():
             userid = ctx.message.author.id
             parser.read('user.ini')
             username = parser.get(str(userid), "osu_username")
-        args = ' '.join(arg)
-        username = str(args)
         await osuapi.get_user(osutoken, username, mode=1)
         user = osuapi.get_user
         embed=discord.Embed()
@@ -66,8 +64,6 @@ class osu():
             userid = ctx.message.author.id
             parser.read('user.ini')
             username = parser.get(str(userid), "osu_username")
-        args = ' '.join(arg)
-        username = str(args)
         await osuapi.get_user(osutoken, username, mode=2)
         user = osuapi.get_user
         embed=discord.Embed()
@@ -85,8 +81,6 @@ class osu():
             userid = ctx.message.author.id
             parser.read('user.ini')
             username = parser.get(str(userid), "osu_username")
-        args = ' '.join(arg)
-        username = str(args)
         await osuapi.get_user(osutoken, username, mode=3)
         user = osuapi.get_user
         embed=discord.Embed()
