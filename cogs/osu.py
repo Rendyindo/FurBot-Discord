@@ -62,13 +62,7 @@ class osu():
                 parser.read('user.ini')
                 username = parser.get(str(userid), "osu_username")
             except configparser.NoSectionError:
-                message = ctx.message
-                await message.channel.send("You didn't specify your username, please send me your username!")
-
-                def check(user):
-                    return user.author == message.author
-                user = await self.bot.wait_for('message', check=check)
-                username = user.content
+                await msg.channel.send("Please specify your username!")
         await osuapi.get_user(osutoken, username, mode=1)
         user = osuapi.get_user
         embed=discord.Embed()
