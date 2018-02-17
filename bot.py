@@ -63,7 +63,7 @@ class FurBot(commands.Bot):
         for extension in initial_extensions:
             try:
                 self.load_extension(extension)
-            except Exception as e:
+            except Exception:
                 print("Failed to load extension {extension}.")
                 traceback.print_exc()
         if ftp_server:
