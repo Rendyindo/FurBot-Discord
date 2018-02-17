@@ -107,9 +107,12 @@ async def get_beatmaps(token, beatmapid=0, beatmapsetid=0, mode=0):
 
 def parse_mods(int):
     ModList = Mod.unpack(int)
-    EnabledModsList = {key: value for key, value in ModList.items() 
+    EnabledModsDict = {key: value for key, value in ModList.items() 
                  if value is not False}
-    parse_mods.EnabledMods = EnabledModsList.keys()
+    EnabledModsKeys = EnabledModsDict.keys()
+    parse_mods.EnabledMods = []
+    for mod in EnabledModsKeys:
+        parse_mods.EnabledMods.append(mod)
 
 async def get_user_recent(token, username):
     apilink = "https://osu.ppy.sh/api/get_user_recent?k={}&u={}".format(token, username)
