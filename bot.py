@@ -146,7 +146,7 @@ class FurBot(commands.Bot):
             return c
 
     async def on_guild_join(self, guild):
-        channel = await find_channel(guild)
+        channel = await self.find_channel(guild)
         await channel.send("~~Awoo!~~ Hewwo thewe, " + guild.name + """!\r
     I'm FurBot~ If you want to try me out, go ahead check out the help! The command is `!furbot help`.\r
     If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
