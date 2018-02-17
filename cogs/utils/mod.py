@@ -20,20 +20,20 @@ class Mod(BitEnum):
     SO = 1 << 12
     AP = 1 << 13  # same as autopilot
     PF = 1 << 14
-    4K = 1 << 15
-    5K = 1 << 16
-    6K = 1 << 17
-    7K = 1 << 18
-    8K = 1 << 19
+    FourKeys = 1 << 15
+    FiveKeys = 1 << 16
+    SixKeys = 1 << 17
+    SevenKeys = 1 << 18
+    EightKeys = 1 << 19
     FadeIn = 1 << 20
     Random = 1 << 21
     Cinema = 1 << 22  # same as last_mod
     TP = 1 << 23
-    9K = 1 << 24
+    NineKeys = 1 << 24
     Coop = 1 << 25
-    1K = 1 << 26
-    3K = 1 << 27
-    2K = 1 << 28
+    OneKey = 1 << 26
+    ThreeKeys = 1 << 27
+    TwoKeys = 1 << 28
     ScoreV2 = 1 << 29
 
     @classmethod
