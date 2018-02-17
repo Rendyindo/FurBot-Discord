@@ -1,7 +1,20 @@
+import asyncio
+import hashlib
+import os
+import random
+import re
+import sys
+import traceback
+import urllib
+from urllib.parse import urlparse
+
+import aioftp
+import aiohttp
 import discord
 from discord.ext import commands
-import random, os, re, asyncio, aiohttp, cogs.utils.osuapi, traceback, sys, urllib, aioftp, cogs.utils.eapi, hashlib
-from urllib.parse import urlparse
+
+import cogs.utils.eapi
+import cogs.utils.osuapi
 
 try:
     import config
