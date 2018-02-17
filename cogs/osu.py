@@ -23,6 +23,12 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def osu(self, ctx, *arg):
+        """Gives osu! profile info with given arguments for osu!standard mode.
+
+        Arguments:
+
+        `*arg` : list  
+        The username of the player."""
         if arg:
             args = ' '.join(arg)
             username = str(args)
@@ -40,6 +46,12 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def taiko(self, ctx, *arg):
+        """Gives osu! profile info with given arguments for Taiko mode.
+
+        Arguments:
+
+        `*arg` : list  
+        The username of the player."""
         if arg:
             args = ' '.join(arg)
             username = str(args)
@@ -57,6 +69,12 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def catch(self, ctx, *arg):
+        """Gives osu! profile info with given arguments for osu!catch mode.
+
+        Arguments:
+
+        `*arg` : list  
+        The username of the player."""
         if arg:
             args = ' '.join(arg)
             username = str(args)
@@ -74,6 +92,12 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def mania(self, ctx, *arg):
+        """Gives osu! profile info with given arguments for osu!mania mode.
+
+        Arguments:
+
+        `*arg` : list  
+        The username of the player."""
         if arg:
             args = ' '.join(arg)
             username = str(args)
@@ -91,6 +115,12 @@ class osu():
 
     @osu.command()
     async def recent(self, ctx, *arg):
+        """Sends info about last play of user
+
+        Arguments:
+
+        `*arg` : list  
+        The username of the player."""
         if arg:
             args = ' '.join(arg)
             username = str(args)

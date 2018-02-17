@@ -8,6 +8,11 @@ class General():
     
     @commands.command(pass_context=True)
     async def avatar(self, ctx, message):
+        """Sends avatar link of mentioned user.
+
+        Arguments:
+
+        `(mentioned user)` : `discord.User`"""
         mentions = ctx.message.mentions
         for user in mentions:
             avatarurl = user.avatar_url
@@ -16,6 +21,12 @@ class General():
 
     @commands.command(pass_context=True)
     async def urban(self, ctx, *args):
+        """Searches urbandictionary for a definition.
+
+        Arguments:
+
+        `*args` : list  
+        The quer(y/ies)"""
         args = ' '.join(args)
         args = str(args)
         apilink = "http://api.urbandictionary.com/v0/define?term=" + args
@@ -41,6 +52,7 @@ class General():
 
     @commands.command()
     async def about(self, ctx):
+        """Well uhh, the bot's info, of course..."""
         embed=discord.Embed(color=0x0089ff)
         embed.add_field(name=Developer, value="Error-", inline=False)
         embed.add_field(name=Library, value=discord.py, inline=False)
@@ -49,6 +61,12 @@ class General():
 
     @commands.command()
     async def report(self, ctx, *args):
+        """Reports a problem to bot owner.
+
+        Arguments:
+
+        `*args` : list  
+        The report splitted to list."""
         args = ' '.join(args)
         message = str(args)
         with open("reports.log", "w") as text_file:
@@ -60,6 +78,16 @@ class General():
 
     @commands.command()
     async def choose(self, ctx, *args):
+        """Choose one of a lot arguments
+
+        Arguments:
+
+        `*args` : list  
+        The message but its splitted to a list.
+
+        Usage:
+        
+        `<prefix>choose Arg1 | Arg2 | Arg3 | ...`"""
         args = ' '.join(args)
         args = str(args)
         choices = args.split('|')

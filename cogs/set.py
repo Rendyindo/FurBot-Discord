@@ -15,6 +15,7 @@ class set:
 
     @set.command(name="osu")
     async def _osu(self, ctx, *arg):
+        """Sets osu! username."""
         args = ' '.join(arg)
         username = str(args)
         userid = ctx.message.author.id

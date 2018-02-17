@@ -50,9 +50,11 @@ processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
 
 class ResultNotFound(Exception):
+    """Used if ResultNotFound is triggered by e* API."""
     pass
 
 class InvalidHTTPResponse(Exception):
+    """Used if non-200 HTTP Response got from server."""
     pass
 
 class FurBot(commands.Bot):
@@ -80,9 +82,14 @@ class FurBot(commands.Bot):
     
     @commands.command()
     async def help(self, ctx, *args):
+        """Well, the help command, what do you expect?"""
         await ctx.send("Go ahead read the README here! https://furbot.rorre.me/command")
 
     async def on_message(self, message):
+        """URL detection to message.
+
+        If we got e621 or e926 link, it will invoke `processshowapi(apilink)` and respond with given result.
+        If we got osu! beatmap link, it will invoke `osuapi.get_beatmaps(osutoken, beatmapid=mapid, beatmapsetid=mapid)` and respond with given result."""
         if message.author.id == self.user.id:
             return
         await asyncio.sleep(0.5)
@@ -153,12 +160,14 @@ class FurBot(commands.Bot):
                 await message.channel.send(embed=embed)
 
     async def find_channel(self, guild):
+        """Automatically find suitable channel to send, this is invoked for `on_guild_join(guild)`"""
         for c in guild.text_channels:
             if not c.permissions_for(guild.me).send_messages:
                 continue
             return c
 
     async def on_guild_join(self, guild):
+        """Sends greeting message to server when joining, but it searches for suitable channel first by invoking `find_channel(guild)`"""
         channel = await self.find_channel(guild)
         await channel.send("~~Awoo!~~ Hewwo thewe, " + guild.name + """!\r
     I'm FurBot~ If you want to try me out, go ahead check out the help! The command is `!furbot help`.\r
@@ -166,6 +175,7 @@ class FurBot(commands.Bot):
     Thank you very much for using this bot!""")
 
     async def config_sync(self, server, username, password):
+        """Configuration syncronization"""
         Continue = True
         before = self.md5("user.ini")
         while Continue:
@@ -182,6 +192,7 @@ class FurBot(commands.Bot):
                         before = after
 
     def md5(self, fname):
+        """I don't think I need to explain this, its pretty self-explained /shrug"""
         hash_md5 = hashlib.md5()
         with open(fname, "rb") as f:
             for chunk in iter(lambda: f.read(4096), b""):

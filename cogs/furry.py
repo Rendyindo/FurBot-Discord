@@ -7,9 +7,11 @@ processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
 
 class ResultNotFound(Exception):
+    """Used if ResultNotFound is triggered by e* API."""
     pass
 
 class InvalidHTTPResponse(Exception):
+    """Used if non-200 HTTP Response got from server."""
     pass
 
 class Furry():
@@ -18,6 +20,12 @@ class Furry():
 
     @commands.command(pass_context=True)
     async def e621(self, ctx, *args):
+        """Searches e621 with given queries.
+
+        Arguments:
+
+        `*args` : list  
+        The quer(y/ies)"""
         if not isinstance(ctx.channel, discord.DMChannel):
             if not isinstance(ctx.channel, discord.GroupChannel):
                 if not ctx.channel.is_nsfw():
@@ -41,6 +49,12 @@ class Furry():
         
     @commands.command(pass_context=True)
     async def e926(self, ctx, *args):
+        """Searches e926 with given queries.
+
+        Arguments:
+
+        `*args` : list  
+        The quer(y/ies)"""
         args = ' '.join(args)
         args = str(args)
         netloc = "e926"
@@ -59,6 +73,12 @@ class Furry():
 
     @commands.command(pass_context=True)
     async def show(self, ctx, arg):
+        """Show a post from e621/e926 with given post ID
+
+        Arguments:
+
+        `arg` : int  
+        The post ID"""
         print("------")
         arg = str(arg)
         print("Got command with arg: " + arg)
@@ -75,6 +95,8 @@ class Furry():
 
     @commands.command(pass_context=True)
     async def randompick(self, ctx, *args, description="Output random result"):
+        """Output random result from e621/e926.  
+        If channel is NSFW, use e621, if not, then use e926."""
         if not isinstance(ctx.channel, discord.DMChannel):
             if not isinstance(ctx.channel, discord.GroupChannel):
                 if not ctx.channel.is_nsfw():
