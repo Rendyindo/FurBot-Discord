@@ -121,23 +121,23 @@ async def get_user_recent(token, username):
                 print("Invalid HTTP Response:" + str(r.status))
                 raise InvalidHTTPResponse()
     play = datajson[0]
-    get_user_recent.beatmap_id = play['beatmap_id']
-    get_user_recent.score = play['score']
-    get_user_recent.maxcombo = play['maxcombo']
-    get_user_recent.count50 = play['count50']
-    get_user_recent.count100 = play['count100']
-    get_user_recent.count300 = play['count300']
-    get_user_recent.countmiss = play['countmiss']
-    get_user_recent.countkatu = play['countkatu']
-    get_user_recent.countgeki = play['countgeki']
-    get_user_recent.perfect = play['perfect']
-    get_user_recent.enabled_mods_bitmask = play['enabled_mods']
-    get_user_recent.user_id = play['user_id']
+    get_user_recent.beatmap_id = int(play['beatmap_id'])
+    get_user_recent.score = int(play['score'])
+    get_user_recent.maxcombo = int(play['maxcombo'])
+    get_user_recent.count50 = int(play['count50'])
+    get_user_recent.count100 = int(play['count100'])
+    get_user_recent.count300 = int(play['count300'])
+    get_user_recent.countmiss = int(play['countmiss'])
+    get_user_recent.countkatu = int(play['countkatu'])
+    get_user_recent.countgeki = int(play['countgeki'])
+    get_user_recent.perfect = int(play['perfect'])
+    get_user_recent.enabled_mods_bitmask = int(play['enabled_mods'])
+    get_user_recent.user_id = int(play['user_id'])
     get_user_recent.date = play['date']
     get_user_recent.rank = play['rank']
-    if get_user_recent.perfect == "0":
+    if get_user_recent.perfect == 0:
         get_user_recent.FC = False
-    if get_user_recent.perfect == "1":
+    if get_user_recent.perfect == 1:
         get_user_recent.FC = True
     parse_mods(get_user_recent.enabled_mods_bitmask)
     get_user_recent.enabled_mods = parse_mods.EnabledMods
