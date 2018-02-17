@@ -34,9 +34,12 @@ class osu():
             args = ' '.join(arg)
             username = str(args)
         else:
-            userid = ctx.message.author.id
-            parser.read('user.ini')
-            username = parser.get(str(userid), "osu_username")
+            try:
+                userid = ctx.message.author.id
+                parser.read('user.ini')
+                username = parser.get(str(userid), "osu_username")
+            except configparser.NoSectionError:
+                await ctx.send("Please specify your username!")
         await osuapi.get_user(osutoken, username)
         user = osuapi.get_user
         embed=discord.Embed()
@@ -83,9 +86,12 @@ class osu():
             args = ' '.join(arg)
             username = str(args)
         else:
-            userid = ctx.message.author.id
-            parser.read('user.ini')
-            username = parser.get(str(userid), "osu_username")
+            try:
+                userid = ctx.message.author.id
+                parser.read('user.ini')
+                username = parser.get(str(userid), "osu_username")
+            except configparser.NoSectionError:
+                await ctx.send("Please specify your username!")
         await osuapi.get_user(osutoken, username, mode=2)
         user = osuapi.get_user
         embed=discord.Embed()
@@ -106,9 +112,12 @@ class osu():
             args = ' '.join(arg)
             username = str(args)
         else:
-            userid = ctx.message.author.id
-            parser.read('user.ini')
-            username = parser.get(str(userid), "osu_username")
+            try:
+                userid = ctx.message.author.id
+                parser.read('user.ini')
+                username = parser.get(str(userid), "osu_username")
+            except configparser.NoSectionError:
+                await ctx.send("Please specify your username!")
         await osuapi.get_user(osutoken, username, mode=3)
         user = osuapi.get_user
         embed=discord.Embed()
