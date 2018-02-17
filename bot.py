@@ -1,5 +1,4 @@
 import asyncio
-import hashlib
 import os
 import random
 import re
@@ -177,27 +176,16 @@ class FurBot(commands.Bot):
     async def config_sync(self, server, username, password):
         """Configuration syncronization"""
         Continue = True
-        before = self.md5("user.ini")
         while Continue:
-            after = self.md5("user.ini")
-            if before != after:
-                async with aioftp.ClientSession(server, user=username, password=password) as client:
-                    print("Syncronizing config file")
-                    try:
-                        await client.upload("user.ini")
-                    except:
-                        print("An error occured during upload.")
-                    finally:
-                        print("Done!")
-                        before = after
-
-    def md5(self, fname):
-        """I don't think I need to explain this, its pretty self-explained /shrug"""
-        hash_md5 = hashlib.md5()
-        with open(fname, "rb") as f:
-            for chunk in iter(lambda: f.read(4096), b""):
-                hash_md5.update(chunk)
-        return hash_md5.hexdigest()
+            async with aioftp.ClientSession(server, user=username, password=password) as client:
+                print("Syncronizing config file")
+                try:
+                    await client.upload("user.ini")
+                except:
+                    print("An error occured during upload.")
+                finally:
+                    print("Done!")
+                await asyncio.sleep(30)
 
 bot = FurBot()
 bot.loop.create_task(FurBot().config_sync(ftp_server, ftp_username, ftp_password))
