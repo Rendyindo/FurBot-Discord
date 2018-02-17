@@ -196,7 +196,7 @@ class FurBot(commands.Bot):
                     print("An error occured during upload.")
                 finally:
                     print("Done!")
-                await asyncio.sleep(30)
+                await asyncio.sleep(300)
 
 bot = FurBot()
 bot.loop.create_task(FurBot().config_sync(ftp_server, ftp_username, ftp_password))
