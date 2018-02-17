@@ -33,9 +33,9 @@ async def processapi(apilink):
     data = shuffle(datajson)
     print("Parsing data from json")
     imagenum = 0
-    while ".swf" in data[imagenum]['file_link']:
+    while ".swf" in data[imagenum]['file_url']:
         imagenum += 1
-    while ".webm" in data[imagenum]['file_link']:
+    while ".webm" in data[imagenum]['file_url']:
         imagenum += 1
     try:
         dataimage = data[imagenum]
