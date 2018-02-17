@@ -1,5 +1,13 @@
 import random, os, asyncio, aiohttp
 
+class ResultNotFound(Exception):
+    """Used if ResultNotFound is triggered by e* API."""
+    pass
+
+class InvalidHTTPResponse(Exception):
+    """Used if non-200 HTTP Response got from server."""
+    pass
+
 def shuffle(arr):
     random.shuffle(arr)
     return arr
