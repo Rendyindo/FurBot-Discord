@@ -58,7 +58,7 @@ class InvalidHTTPResponse(Exception):
 
 class FurBot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix=('f!'), description=description)
+        super().__init__(command_prefix=('f!'), description=description, owner_id=owner)
         for extension in initial_extensions:
             try:
                 self.load_extension(extension)
@@ -84,10 +84,21 @@ class FurBot(commands.Bot):
         """Well, the help command, what do you expect?"""
         await ctx.send("Go ahead read the README here! https://furbot.rorre.me/command")
 
+    @commands.command()
+    @commands.is_owner()
+    async def reload(self):
+        """Reloads extensions."""
+        for extension in initial_extensions:
+            try:
+                self.load_extension(extension)
+            except Exception:
+                print("Failed to load extension {extension}.")
+                traceback.print_exc()
+
     async def on_message(self, message):
         """URL detection to message.
 
-        If we got e621 or e926 link, it will invoke `processshowapi(apilink)` and respond with given result.
+        If we got e621 or e926 link, it will invoke `processshowapi(apilink)` and respond with given result.  
         If we got osu! beatmap link, it will invoke `osuapi.get_beatmaps(osutoken, beatmapid=mapid, beatmapsetid=mapid)` and respond with given result."""
         if message.author.id == self.user.id:
             return
