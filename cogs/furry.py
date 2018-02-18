@@ -118,7 +118,7 @@ class Furry():
         await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
         
         @commands.command(pass_context=True)
-    async def sofurry(self, ctx, *args):
+        async def sofurry(self, ctx, *args):
         """Searches SoFurry with given queries.
 
         Arguments:
