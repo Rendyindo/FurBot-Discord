@@ -23,8 +23,10 @@ try:
     ftp_server = config.ftp_server
     ftp_password = config.ftp_password
     ftp_username = config.ftp_username
-except ImportError:
-    pass
+except:
+    ftp_server = ''
+    ftp_password = ''
+    ftp_username = ''
 
 try:
     token = os.environ['DISCORD_TOKEN']
@@ -41,6 +43,7 @@ initial_extensions = (
     'cogs.furry',
     'cogs.general',
     'cogs.osu',
+    'cogs.admin',
     'cogs.set'
 )
 
@@ -183,6 +186,11 @@ class FurBot(commands.Bot):
     I'm FurBot~ If you want to try me out, go ahead check out the help! The command is `!furbot help`.\r
     If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
     Thank you very much for using this bot!""")
+        try:
+            await guild.create_role(name="Silenced", permissions=[read_message, read_message_history])
+        except:
+            await channel.send("Huh, seems like I failed to add a role, did you add 'Manage Role' permission to me?")
+            traceback.print_exc()
 
     async def config_sync(self, server, username, password):
         """Configuration syncronization"""
@@ -201,5 +209,4 @@ class FurBot(commands.Bot):
 bot = FurBot()
 if ftp_server:
     bot.loop.create_task(FurBot().config_sync(ftp_server, ftp_username, ftp_password))
-fi
 bot.run(token)
