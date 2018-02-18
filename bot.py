@@ -199,5 +199,7 @@ class FurBot(commands.Bot):
                 await asyncio.sleep(300)
 
 bot = FurBot()
-bot.loop.create_task(FurBot().config_sync(ftp_server, ftp_username, ftp_password))
+if ftp_server:
+    bot.loop.create_task(FurBot().config_sync(ftp_server, ftp_username, ftp_password))
+fi
 bot.run(token)
