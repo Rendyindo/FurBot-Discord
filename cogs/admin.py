@@ -40,9 +40,9 @@ class Admin():
     async def purge(self, ctx, number):
         number = int(number)
         counter = 0
-        async for x in Client.logs_from(ctx.message.channel, limit = number):
+        async for x in ctx.history(limit = number):
             if counter < number:
-                await Client.delete_message(x)
+                await x.delete()
                 counter += 1
                 await asyncio.sleep(0.25)
         await ctx.send("Deleted {} messages!".format(str(number)))
