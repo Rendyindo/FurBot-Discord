@@ -37,7 +37,7 @@ class Admin():
 
 
     @commands.command(pass_context = True)
-    async def purge(ctx, number):
+    async def purge(self, ctx, number):
         number = int(number)
         counter = 0
         async for x in Client.logs_from(ctx.message.channel, limit = number):
