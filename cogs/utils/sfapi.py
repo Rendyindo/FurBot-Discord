@@ -27,7 +27,8 @@ async def search(queries, maxlevel):
         raise ResultNotFound()
     itemlist = datajson['data']['entries']
     print("Shuffling data from json")
-    data = shuffle(itemlist)
+    datashuffle = shuffle(itemlist)
+    data = datashuffle[0]
     search.postid = data['id']
     search.title = data['title']
     search.artistID = data['artistID']
