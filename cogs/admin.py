@@ -13,7 +13,7 @@ class Admin():
         for user in mentions:
             role = discord.utils.get(ctx.guild.roles, name=args)
             await user.add_roles(role)
-            await ctx.send("Set role {} for {}!".format(args, user.mention)
+            await ctx.send("Set role {} for {}!".format(args, user.mention))
 
     @role.command()
     async def set(self, ctx, userid, *args):
@@ -23,7 +23,7 @@ class Admin():
         for user in mentions:
             role = discord.utils.get(ctx.guild.roles, name=args)
             await user.add_roles(role)
-            await ctx.send("Set role {} for {}!".format(args, user.mention)
+            await ctx.send("Set role {} for {}!".format(args, user.mention))
 
     @role.command()
     async def remove(self, ctx, userid, *args):
@@ -33,7 +33,7 @@ class Admin():
         for user in mentions:
             role = discord.utils.get(ctx.guild.roles, name=args)
             await user.remove_roles(role)
-            await ctx.send("Remove role {} for {}!".format(args, user.mention)
+            await ctx.send("Remove role {} for {}!".format(args, user.mention))
 
 
     @commands.command(pass_context = True)
@@ -45,6 +45,7 @@ class Admin():
                 await Client.delete_message(x)
                 counter += 1
                 await asyncio.sleep(0.25)
+        await ctx.send("Deleted {} messages!".format(str(number)))
 
 def setup(bot):
     bot.add_cog(Admin(bot))
