@@ -35,5 +35,16 @@ class Admin():
             await user.remove_roles(role)
             await ctx.send("Remove role {} for {}!".format(args, user.mention)
 
+
+    @commands.command(pass_context = True)
+    async def purge(ctx, number):
+        number = int(number)
+        counter = 0
+        async for x in Client.logs_from(ctx.message.channel, limit = number):
+            if counter < number:
+                await Client.delete_message(x)
+                counter += 1
+                await asyncio.sleep(0.25)
+
 def setup(bot):
     bot.add_cog(Admin(bot))
