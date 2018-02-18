@@ -7,6 +7,9 @@ class Admin():
         
     @commands.group(invoke_without_command=True)
     async def role(self, ctx, userid, *args):
+        permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
+        if not permissions['manage_roles']:
+            await ctx.send("You need 'Manage roles' permission to do this!")
         args = ' '.join(args)
         args = str(args)
         mentions = ctx.message.mentions
@@ -17,6 +20,9 @@ class Admin():
 
     @role.command()
     async def set(self, ctx, userid, *args):
+        permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
+        if not permissions['manage_roles']:
+            await ctx.send("You need 'Manage roles' permission to do this!")
         args = ' '.join(args)
         args = str(args)
         mentions = ctx.message.mentions
@@ -27,6 +33,9 @@ class Admin():
 
     @role.command()
     async def remove(self, ctx, userid, *args):
+        permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
+        if not permissions['manage_roles']:
+            await ctx.send("You need 'Manage roles' permission to do this!")
         args = ' '.join(args)
         args = str(args)
         mentions = ctx.message.mentions
@@ -38,6 +47,9 @@ class Admin():
 
     @commands.command(pass_context = True)
     async def purge(self, ctx, number):
+        permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
+        if not permissions['manage_messages']:
+            await ctx.send("You need 'Manage Messages' permission to do this!")
         number = int(number)
         counter = 0
         async for x in ctx.history(limit = number):
