@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import random, asyncio, cogs.utils.eapi
+import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi
 from urllib.parse import urlparse
 
 processapi = cogs.utils.eapi.processapi
