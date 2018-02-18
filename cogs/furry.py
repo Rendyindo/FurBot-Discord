@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 
 processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
+search = cogs.utils.sfapi.search
 
 class ResultNotFound(Exception):
     """Used if ResultNotFound is triggered by e* API."""
@@ -115,6 +116,34 @@ class Furry():
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
         await ctx.send("""Post link: `https://""" + netloc + """.net/post/show/""" + processapi.imgid + """/`\r\nArtist: `""" + processapi.imgartist + """`\r\nSource: `""" + processapi.imgsource + """`\r\nRating: """ + processapi.imgrating + """\r\nTags: `""" + processapi.imgtags + """` ...and more\r\nImage link: """ + processapi.file_link)
+        
+        @commands.command(pass_context=True)
+    async def e621(self, ctx, *args):
+        """Searches e621 with given queries.
+
+        Arguments:
+
+        `*args` : list  
+        The quer(y/ies)"""
+        maxlevel = "2"
+        if not isinstance(ctx.channel, discord.DMChannel):
+            if not isinstance(ctx.channel, discord.GroupChannel):
+                if not ctx.channel.is_nsfw():
+                    maxlevel = "0"
+        args = ' '.join(args)
+        args = str(args)
+        print("------")
+        print("Got command with args: " + args)
+        try:
+            await search(args, maxlevel)
+        except ResultNotFound:
+            await ctx.send("Result not found!")
+            return
+        except InvalidHTTPResponse:
+            await ctx.send("We're getting invalid response from the API, please try again later!")
+            return
+        await ctx.send("""Title: {}\r\nArtist: {}\r\nTags: `{}`\r\nRating: {}\r\nImage link: {}""".format(search.title, search.artistName, search.tags, search.contentRating, search.full))
+
 
 def setup(bot):
     bot.add_cog(Furry(bot))
