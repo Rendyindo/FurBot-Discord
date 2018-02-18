@@ -13,6 +13,7 @@ class Admin():
         for user in mentions:
             role = discord.utils.get(ctx.guild.roles, name=args)
             await user.add_roles(role)
+            await ctx.send("Set role {} for {}!".format(args, user.mention)
 
 def setup(bot):
     bot.add_cog(Admin(bot))
