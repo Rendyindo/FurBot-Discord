@@ -39,9 +39,9 @@ async def search(queries, maxlevel):
     search.thumbnail = data['thumbnail'].replace('\/', '/')
     search.preview = data['preview'].replace('\/', '/')
     search.full = data['full'].replace('\/', '/')
-    if search.contentLevel = 0:
+    if search.contentLevel == 0:
         search.contentRating = "Safe"
-    if search.contentLevel = 1:
+    if search.contentLevel == 1:
         search.contentRating = "Adult"
-    if search.contentLevel = 2:
+    if search.contentLevel == 2:
         search.contentRating = "Extreme"
