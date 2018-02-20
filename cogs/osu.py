@@ -141,13 +141,13 @@ class osu():
             userid = ctx.message.author.id
             parser.read('user.ini')
             username = parser.get(str(userid), "osu_username")
-        await osuapi.get_user_recent(osutoken, username)
+        await osuapi.get_user_recent(osutoken, username, mode=0)
         play = osuapi.get_user_recent
         await osuapi.get_beatmaps(osutoken, beatmapid=play.beatmap_id)
         map = osuapi.get_beatmaps
         embed=discord.Embed(title="{} - {} [{}]".format(map.artist, map.title, map.version), url="https://osu.ppy.sh/b/{}".format(play.beatmap_id), description="Played by: {}".format(username), color=0x52b34d)
         embed.set_thumbnail(url="https://b.ppy.sh/thumb/{}l.jpg".format(str(map.set_id)))
-        embed.add_field(name="Play info", value="Mods: {} | Score: {} | FC: {} | Combo: {}".format(''.join(play.enabled_mods), play.score, play.FC, play.maxcombo), inline=False)
+        embed.add_field(name="Play info", value="Mods: {} | Score: {} | Accuracy {} | FC: {} | Combo: {}".format(''.join(play.enabled_mods), play.score, play.accuracy, play.FC, play.maxcombo), inline=False)
         embed.add_field(name="Date Played", value="{}".format(play.date), inline=False)
         await ctx.send(embed=embed)
 

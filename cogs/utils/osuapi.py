@@ -129,8 +129,8 @@ def calculate_acc(count300, count100, count50, countgeki, countkatu, countmiss, 
         allvalue = 300 * (countmiss + count50 + count100 + count300 + countgeki + countkatu)
     return round((hitvalue / allvalue) * 100, 2)
 
-async def get_user_recent(token, username):
-    apilink = "https://osu.ppy.sh/api/get_user_recent?k={}&u={}".format(token, username)
+async def get_user_recent(token, username, mode=0):
+    apilink = "https://osu.ppy.sh/api/get_user_recent?k={}&u={}&m={}".format(token, username, mode)
     async with aiohttp.ClientSession() as session:
         async with session.get(apilink) as r:
             if r.status == 200:
