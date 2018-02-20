@@ -114,6 +114,21 @@ def parse_mods(int):
     for mod in EnabledModsKeys:
         parse_mods.EnabledMods.append(mod)
 
+def calculate_acc(count300, count100, count50, countgeki, countkatu, countmiss, mode=0):
+    if mode == 0:
+        hitvalue = 50 * count50 + 100 * count100 + 300 * count300
+        allvalue = 300 * (countmiss + count50 + count100 + count300)
+    if mode == 2:
+        hitvalue = count50 + count100 + count300
+        allvalue = hitvalue + countmiss + countkatu
+    if mode == 1:
+        hitvalue = 0.5 * count100 + count300
+        allvalue = countmiss + count100 + count300
+    if mode == 3:
+        hitvalue = 50 * count50 + 100 * count100 + 200 * countkatu + 300 * (count300 + countgeki)
+        allvalue = 300 * (countmiss + count50 + count100 + count300 + countgeki + countkatu)
+    return round((hitvalue / allvalue) * 100, 2)
+
 async def get_user_recent(token, username):
     apilink = "https://osu.ppy.sh/api/get_user_recent?k={}&u={}".format(token, username)
     async with aiohttp.ClientSession() as session:
