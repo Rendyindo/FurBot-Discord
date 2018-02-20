@@ -159,3 +159,5 @@ async def get_user_recent(token, username, mode=0):
         get_user_recent.FC = True
     parse_mods(get_user_recent.enabled_mods_bitmask)
     get_user_recent.enabled_mods = parse_mods.EnabledMods
+    gamemode = mode
+    get_user_recent.accuracy = calculate_acc(get_user_recent.count300, get_user_recent.count100, get_user_recent.count50, get_user_recent.countgeki, get_user_recent.countkatu, get_user_recent.countmiss, mode=mode)
