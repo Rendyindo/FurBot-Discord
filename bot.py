@@ -183,7 +183,7 @@ class FurBot(commands.Bot):
     If any of you need any help, feel free to join our Discord server at: `https://discord.gg/YTEeY9g`\r
     Thank you very much for using this bot!""")
         try:
-            await guild.create_role(name="Silenced", permissions=[read_message, read_message_history])
+            await guild.create_role(name="Silenced", permissions=[discord.Permissions.read_messages, discord.Permissions.read_message_history])
         except:
             await channel.send("Huh, seems like I failed to add a role, did you add 'Manage Role' permission to me?")
             traceback.print_exc()
