@@ -63,6 +63,7 @@ class InvalidHTTPResponse(Exception):
 class FurBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=('f!'), description=description, owner_id=owner)
+        self.remove_command('help')
         for extension in initial_extensions:
             try:
                 self.load_extension(extension)
@@ -80,7 +81,6 @@ class FurBot(commands.Bot):
         print(self.user.name)
         print(self.user.id)
         print('------')
-        self.remove_command('help')
         await self.change_presence(game=discord.Game(name='f!help'))
 
     @commands.command()
