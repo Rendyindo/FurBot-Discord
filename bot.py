@@ -44,7 +44,8 @@ initial_extensions = (
     'cogs.general',
     'cogs.osu',
     'cogs.admin',
-    'cogs.set'
+    'cogs.set',
+    'cogs.help'
 )
 
 osuapi = cogs.utils.osuapi
