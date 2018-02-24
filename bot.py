@@ -81,11 +81,6 @@ class FurBot(commands.Bot):
         print('------')
         self.remove_command('help')
         await self.change_presence(game=discord.Game(name='f!help'))
-    
-    @commands.command()
-    async def help(self, ctx, *args):
-        """Well, the help command, what do you expect?"""
-        await ctx.send("Go ahead read the README here! https://furbot.rorre.me/command")
 
     @commands.command()
     @commands.is_owner()
