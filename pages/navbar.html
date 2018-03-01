@@ -6,8 +6,8 @@
 		</div>
 
 		<div class="right-align align">
-			<li><a href="">Home</a></li>
-			<li><a href="command">Commands</a></li>
+			<li><a href="index.html">Home</a></li>
+			<li><a href="command.html">Commands</a></li>
 			<li><a href="https://discordapp.com/api/oauth2/authorize?client_id=406419784301936641&permissions=116736&scope=bot">Invite</a></li>
 		</div>
 	</ul>
@@ -33,9 +33,10 @@
 		<li><img src="images/Black_Logo_Wolf.png" class="img-30px"> Furbot</li>
 		</div>
 		<div class="hovered-menu">
-		<li><a href="..">Home</a></li>
-		<li><a href="command">Commands</a></li>
-		<li><a href="https://discordapp.com/api/oauth2/authorize?client_id=406419784301936641&permissions=116736&scope=bot">Invite</a></li>
+		<a href="index.html"><li>Home</li></a>
+		<a href="command.html"><li>Commands</li></a>
+		<a href="https://discordapp.com/api/oauth2/authorize?client_id=406419784301936641&permissions=116736&scope=bot">
+		<li>Invite</li></a>
 		<a href="#closeit" id="close-nav"><li>Close Menu</li></a>
 		</div>
 	</ul>
@@ -50,9 +51,9 @@
 			scrollTop = $(window).scrollTop();
 			 $('.counter').html(scrollTop);
 		    
-			if (scrollTop >= 450) {
+			if (scrollTop >= 550) {
 				$('.navigasi').addClass('scrolled-nav');
-			} else if (scrollTop < 450) {
+			} else if (scrollTop < 500) {
 				$('.navigasi').removeClass('scrolled-nav');
 			} 
 		}); 

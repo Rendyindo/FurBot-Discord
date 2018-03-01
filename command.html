@@ -1,11 +1,16 @@
+<!-- =============================================================================================== -->
 <html>
 	<head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>FurBot - Command Info</title>
+		<!-- ================================================== -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- ================================================== -->
+		<title>FurBot</title>
+		<!-- ================================================== -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<!-- ================================================== -->
 		<link rel="stylesheet" type="text/css" href="css/util.css">
 		<!-- ================================================== -->
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/mobile.css">
 		<!-- ================================================== -->
 		<link rel="stylesheet" type="text/css" href="vendor/Animate.css">
 		<!-- ================================================== -->
@@ -19,28 +24,48 @@
         </script>
 		<!-- ================================================== -->
 	</head>
-
+<!-- =============================================================================================== -->
 	<body>
+		<!-- ================================================== -->
 		<div id="navigasi"></div>
 		<!-- ================================================== -->
 		<link rel="stylesheet" type="text/css" href="vendor/Bootstrap/css/bootstrap.css">
 		<!-- ================================================== -->
-		<div class="navbar-ghost"></div>
+		<div class="first-section">
+		<div class="dim-background">
+			<div class="title-1 fs-60 text-white text-center">
+			FurBot
+			</div>
+
+			<div class="image-cont-1">
+				<center><img src="images/White_Logo_Wolf.png" class="img-1 img-200px round-border"></center>
+			</div>
+
+			<div class="button-cont-1 fs-30 text-white text-center">
+				<a href="#scrolling"><button class="btn btn-custom-transparent round-button" id="scrolldown">Go Scroll Me!</button></a>
+			</div>
+		</div>
+		</div>
 		<!-- ================================================== -->
-		<div class="cmd-first-part">
-			<div class="container m-t-40">
-				<div class="row">
-				
-				<div class="col-md-12 text-black-reduced bold-text fs-30 wow flipInX">Command Info<hr></div>
-
+		<div id="border-scroll"> </div>
+		<!-- ================================================== -->
+		<div class="second-section p-b-50 p-t-50">
+			<div class="container">
+			<!-- ======================== -->
+			<div class="row">
+				<div class="col-md-12">
+				<div class="rectangle-stand"></div>
+				<div class="small-text-1 fs-40 bold-text bold-text text-black-reduced m-l-20">
+				Command Lists
+				</div><hr>
+				<!-- ====== -->
+				<div class="small-text-2 fs-20 bold-text">
+				There are many things you can do with my bot. Check it out!
+				</div><hr>
 				</div>
-				<div class="row">
-					
-					<div class="col-md-12 text-justify">Well, Its the command list, what do you expect?</div>
-
-				</div>
-
-				<!-- ================================================== -->
+			</div>
+			<!-- ======================== -->
+			<!-- ================================================== -->
 				<div class="row button-li m-t-25">
 					<div class="col-md-12">
 					<select class="form-control" name="category" id="category">
@@ -55,7 +80,7 @@
 				<div class="row m-t-25 table-empty" id="select-category">
 					<div class="col-md-12">
 					<div class="table-responsive">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-hover">
 							<tr>
 								<td>Select a category to proceed</td>
 							</tr>
@@ -67,11 +92,11 @@
 				<div class="row m-t-25" id="general">
 					<div class="col-md-12">
 					<div class="table-responsive">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-hover">
 							<tr>
-								<td>Command</td>
-								<td>Usage</td>
-								<td>Example</td>
+							<td>Command</td>
+							<td>Usage</td>
+							<td>Example</td>
 							</tr>
 							<tr>
 							 <td>about</td>
@@ -96,7 +121,7 @@
 							<tr>
 							 <td>choose [arg] | [arg] | ...</td>
 							 <td>Chooses one from given arguments</td>
-							 <td>f!choose femboy fox are gay | fwmboy fox aren't gay</td>'
+							 <td>f!choose femboy fox are gay | fwmboy fox aren't gay</td>
 						</table>
 					</div>
 					</div>
@@ -105,7 +130,7 @@
 				<div class="row m-t-25" id="osu">
 					<div class="col-md-12">
 					<div class="table-responsive">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-hover">
 							<tr>
 								<td>Command</td>
 								<td>Usage</td>
@@ -144,7 +169,7 @@
 				<div class="row m-t-25" id="lewd">
 					<div class="col-md-12">
 					<div class="table-responsive">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-hover">
 							<tr>
 								<td>Command</td>
 								<td>Usage</td>
@@ -184,18 +209,18 @@
 			</div>
 		</div>
 
+		</div>
 		<!-- ================================================== -->
-		<div class="cmd-second-part p-t-80 p-b-80">
+		<div class="third-section p-t-50 p-b-50">
 			<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 				<div class="cmd-title-4 text-black-reduced bold-text fs-35 text-center">
-					FurBot Discord Help Server / Invite Me
+					FurBot Discord Help Server
 				</div>
 
 				<div class="button-sub m-t-20">
-					<center><a href="https://discordapp.com/invite/YTEeY9g"><button class="btn btn-info">Join Server</button></a> 
-					<a href="https://discordapp.com/api/oauth2/authorize?client_id=406419784301936641&permissions=116736&scope=bot"><button class="btn btn-info">Invite</button></a></center>
+					<center><a href=""><button class="btn round-button btn-white-transparent">Join</button></a></center>
 				</div>
 				</div>
 			</div>
@@ -204,14 +229,19 @@
 		<!-- ================================================== -->
 		<div id="footer"></div>
 		<!-- ================================================== -->
-	</body> 
+	</body>
 </html>
-
-<!-- ================================================== -->
+<!-- =============================================================================================== -->
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#navigasi").load("pages/navbar_2.html")
+		$("#navigasi").load("pages/navbar.html")
 		$("#footer").load("pages/footer.html");
+	});
+
+	$("#scrolldown").click(function() {
+	    $('html, body').animate({
+	        scrollTop: $("#border-scroll").offset().top
+	    }, 2000);
 	});
 	// ==================================================
 	$(function() {
@@ -256,13 +286,4 @@
 	        } 
 	    });
 	});
-	// ==================================================
 </script>
-<!-- ================================================== -->
-<style type="text/css">
-	.navbar-ghost {
-		background: transparent;
-		padding: 35px;
-	}
-	.
-</style>

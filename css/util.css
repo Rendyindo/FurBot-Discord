@@ -3038,6 +3038,9 @@
 .border-2px-black {
 	border : 2px solid #363636;
 }
+.border-5px-black {
+	border : 5px solid #363636;
+}
 /*[ HREF HOVER IMG ]
 ///////////////////////////////////////////////////////////
 */
@@ -3059,12 +3062,23 @@
 /*[ BUTTON ]
 ///////////////////////////////////////////////////////////
 */
+.round-button {
+	border-radius : 30px 30px !important;
+}
 .btn-custom-darkblue {
 	background: #336e7b;
 	color: white;
 }
 .btn-custom-darkblue:hover {
 	background: #26505a;
+}
+.btn-white-transparent {
+	background : transparent !important;
+	border : 2px solid #363636 !important;
+}
+.btn-white-transparent:hover {
+	background: #363636 !important;
+	color: white;
 }
 .btn-custom-transparent {
 	background: transparent;
