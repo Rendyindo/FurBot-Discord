@@ -45,7 +45,6 @@ initial_extensions = (
     'cogs.osu',
     'cogs.admin',
     'cogs.set',
-    'cogs.help'
 )
 
 osuapi = cogs.utils.osuapi
@@ -63,7 +62,6 @@ class InvalidHTTPResponse(Exception):
 class FurBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=('f!'), description=description, owner_id=owner)
-        self.remove_command('help')
         for extension in initial_extensions:
             try:
                 self.load_extension(extension)
