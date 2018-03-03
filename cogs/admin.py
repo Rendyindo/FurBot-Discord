@@ -5,9 +5,11 @@ class Admin():
     def __init__(self, bot):
         self.bot = bot
         
-    @commands.group(invoke_without_command=True, description="Sets a role to a user", usage="f!role @user <role name>")
+    @commands.group(invoke_without_command=True)
     async def role(self, ctx, userid, *args):
-        """Sets a role to a user"""
+        """Sets a role to a user
+        
+        Usage: f!role @user <role name>"""
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_roles']:
             await ctx.send("You need 'Manage roles' permission to do this!")
@@ -19,9 +21,11 @@ class Admin():
             await user.add_roles(role)
             await ctx.send("Set role {} for {}!".format(args, user.mention))
 
-    @role.command(description="Sets a role to a user", usage="f!role set @user <role name>")
+    @role.command()
     async def set(self, ctx, userid, *args):
-        """Sets a role to a user"""
+        """Sets a role to a user
+        
+        Usage: f!role set @user <role name>"""
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_roles']:
             await ctx.send("You need 'Manage roles' permission to do this!")
@@ -33,9 +37,11 @@ class Admin():
             await user.add_roles(role)
             await ctx.send("Set role {} for {}!".format(args, user.mention))
 
-    @role.command(description="Removes a role from a user", usage="f!role remove @user <role name>")
+    @role.command()
     async def remove(self, ctx, userid, *args):
-        """Removes a role from a user"""
+        """Removes a role from a user
+        
+        Usage: f!role remove @user <role name>"""
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_roles']:
             await ctx.send("You need 'Manage roles' permission to do this!")
@@ -48,9 +54,11 @@ class Admin():
             await ctx.send("Remove role {} for {}!".format(args, user.mention))
 
 
-    @commands.command(pass_context=True, description="Purge x number of messages", usage="f!purge <number of messages>")
+    @commands.command(pass_context=True)
     async def purge(self, ctx, number):
-        """Purge x number of messages"""
+        """Purge x number of messages
+        
+        Usage: f!purge <number of messages>"""
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_messages']:
             await ctx.send("You need 'Manage Messages' permission to do this!")
