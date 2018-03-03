@@ -10,6 +10,10 @@ class set:
     
     @commands.group()
     async def set(self, ctx):
+        """Sets something
+        
+        Current setting commands:  
+        osu: f!set osu <osu username> (Sets osu! username for osu! commands)"""
         if ctx.invoked_subcommand is None:
             await ctx.send('Invalid setting command!')
 
