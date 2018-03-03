@@ -38,7 +38,7 @@ try:
 except KeyError:
     pass
 
-description = '''Bot that uhh, actually just searches e621'''
+description = '''Bot that does mainly for furry stuffs!'''
 initial_extensions = (
     'cogs.furry',
     'cogs.general',
