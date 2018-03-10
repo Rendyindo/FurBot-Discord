@@ -45,8 +45,7 @@ initial_extensions = (
     'cogs.osu',
     'cogs.admin',
     'cogs.set',
-    'cogs.wiki',
-    'cogs.weather'
+    'cogs.wiki'
 )
 
 osuapi = cogs.utils.osuapi
