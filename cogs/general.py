@@ -27,7 +27,8 @@ class General():
         avatar     Sends avatar link of mentioned user.
         choose     Choose one of a lot arguments
         report     Reports a problem to bot owner.
-        urban      Searches urbandictionary for a definition."""
+        urban      Searches urbandictionary for a definition.
+        weather    Searches weather of a location (and forecast)"""
     def __init__(self, bot):
         self.bot = bot
     
