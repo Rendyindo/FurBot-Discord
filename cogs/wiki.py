@@ -6,12 +6,19 @@ wikifur = MediaWiki(url="https://en.wikifur.com/w/api.php")
 wikipedia = MediaWiki()
 
 class Wiki():
+    """Wiki stuffs
+
+    Commands:
+        wikifur    Searches WikiFur with given queries
+        wikipedia  Searches Wikipedia with given queries"""
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def wikifur(self, ctx, *args):
-        """Searches WikiFur with given queries"""
+        """Searches WikiFur with given queries
+        
+        Usage: f!wikifur <args>"""
         args = ' '.join(args)
         args = str(args)
         pageresult = wikifur.search(args, results=1)[0]
@@ -22,7 +29,9 @@ class Wiki():
 
     @commands.command()
     async def wikipedia(self,ctx, *args):
-        """Searches Wikipedia with given queries"""
+        """Searches Wikipedia with given queries
+        
+        Usage: f!wikipedia <args>"""
         args = ' '.join(args)
         args = str(args)
         pageresult = wikipedia.search(args, results=1)[0]

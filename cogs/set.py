@@ -5,6 +5,10 @@ from configparser import SafeConfigParser
 parser = SafeConfigParser()
 
 class set:
+    """Settings related
+
+    Commands:
+        set        Sets something"""
     def __init__(self, bot):
         self.bot = bot
     

@@ -17,6 +17,14 @@ class InvalidHTTPResponse(Exception):
     pass
 
 class General():
+    """General/fun stuffs.
+
+    Commands:
+        about      Well uhh, the bot's info, of course...
+        avatar     Sends avatar link of mentioned user.
+        choose     Choose one of a lot arguments
+        report     Reports a problem to bot owner.
+        urban      Searches urbandictionary for a definition."""
     def __init__(self, bot):
         self.bot = bot
     

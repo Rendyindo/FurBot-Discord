@@ -2,6 +2,11 @@ import discord, asyncio
 from discord.ext import commands
 
 class Admin():
+    """The admin commands, for server moderator/owner
+
+    Commands:
+        purge      Purge x number of messages
+        role       Sets a role to a user"""
     def __init__(self, bot):
         self.bot = bot
         

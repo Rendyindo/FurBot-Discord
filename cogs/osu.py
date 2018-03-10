@@ -19,6 +19,13 @@ except KeyError:
 parser = SafeConfigParser()
 
 class osu():
+    """Everything osu! related
+
+    Commands:
+        catch      Gives osu! profile info with given arguments for osu!catch mode.
+        mania      Gives osu! profile info with given arguments for osu!mania mode.
+        osu        Gives osu! profile info with given arguments for osu!standard mode.
+        taiko      Gives osu! profile info with given arguments for Taiko mode."""
     def __init__(self, bot):
         self.bot = bot
 
@@ -29,7 +36,10 @@ class osu():
         Arguments:
 
         `*arg` : list  
-        The username of the player."""
+        The username of the player.
+        
+        recent : command
+        Replies most recent play of a user."""
         if arg:
             args = ' '.join(arg)
             username = str(args)
