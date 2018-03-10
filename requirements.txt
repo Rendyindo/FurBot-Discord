@@ -1,4 +1,5 @@
 requests==2.18.1
 aioftp==0.10.0
 weather-api==0.0.6
+pymediawiki
 https://github.com/Rapptz/discord.py/archive/rewrite.zip
