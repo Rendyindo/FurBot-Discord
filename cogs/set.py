@@ -4,7 +4,7 @@ from configparser import SafeConfigParser
 
 parser = SafeConfigParser()
 
-class set:
+class setting:
     """Settings related
 
     Commands:
@@ -34,4 +34,4 @@ class set:
         await ctx.send("Set osu! username to: {}".format(username))
 
 def setup(bot):
-    bot.add_cog(set(bot))
+    bot.add_cog(setting(bot))

@@ -44,7 +44,7 @@ initial_extensions = (
     'cogs.general',
     'cogs.osu',
     'cogs.admin',
-    'cogs.set',
+    'cogs.setting',
     'cogs.wiki'
 )
 
