@@ -13,6 +13,7 @@ class Admin():
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_roles']:
             await ctx.send("You need 'Manage roles' permission to do this!")
+            return
         args = ' '.join(args)
         args = str(args)
         mentions = ctx.message.mentions
@@ -29,6 +30,7 @@ class Admin():
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_roles']:
             await ctx.send("You need 'Manage roles' permission to do this!")
+            return
         args = ' '.join(args)
         args = str(args)
         mentions = ctx.message.mentions
@@ -45,6 +47,7 @@ class Admin():
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_roles']:
             await ctx.send("You need 'Manage roles' permission to do this!")
+            return
         args = ' '.join(args)
         args = str(args)
         mentions = ctx.message.mentions
@@ -62,6 +65,7 @@ class Admin():
         permissions = dict(iter(ctx.message.channel.permissions_for(ctx.message.author)))
         if not permissions['manage_messages']:
             await ctx.send("You need 'Manage Messages' permission to do this!")
+            return
         number = int(number)
         counter = 0
         async for x in ctx.history(limit = number):
