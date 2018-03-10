@@ -1,6 +1,9 @@
 import discord, random
 from discord.ext import commands
 import asyncio, aiohttp
+from weather import Weather
+
+w = Weather(unit='c')
 
 try:
     import config
@@ -117,6 +120,20 @@ class General():
             await ctx.send("You need to send at least 2 argument!")
             return
         await ctx.send(random.choice(choices) + ", of course!")
+
+    @commands.command()
+    async def weather(self, ctx, *args):
+        """Searches weather of a location (and forecast)
+        
+        Usage: f!weather <place>"""
+        args = ' '.join(args)
+        args = str(args)
+        location = w.lookup_by_location(args)
+        condition = location.condition()
+        embed=discord.Embed(title="Weather for {}".format(args), description="Current weather: {}".format(condition.text()), color=0x0080c0)
+        for forecast in location.forecast()[:9]:
+            embed.add_field(name=forecast.date(), value=forecast.text(), inline=True)
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(General(bot))
