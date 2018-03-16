@@ -4,6 +4,7 @@ import asyncio, aiohttp
 from weather import Weather
 
 w = Weather(unit='c')
+sauceurl = "https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url="
 
 try:
     import config
@@ -135,6 +136,35 @@ class General():
         for forecast in location.forecast()[:9]:
             embed.add_field(name=forecast.date(), value=forecast.text(), inline=True)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def sauce(self, ctx):
+        embeds = ctx.message.attachments
+        if not embeds:
+            await ctx.send(">w<")
+        for embed in embeds:
+            imageurl = embed.url
+            apilink = sauceurl + imageurl
+            async with aiohttp.ClientSession() as session:
+                async with session.get(apilink) as r:
+                    if r.status == 200:
+                        datajson = await r.json()
+                    else:
+                        print("Invalid HTTP Response:" + str(r.status))
+                        raise InvalidHTTPResponse()
+            result = datajson['results'][0]
+            name = result['header']['index_name']
+            try:
+                title = result['data']['title']
+            except KeyError:
+                title = ""
+            try:
+                author = result['data']['author_name']
+            except KeyError:
+                author = ""
+            origurl = result['data']['ext_urls'][0]
+            await ctx.send("Result found! ({})\r\nTitle: {}\r\nAuthor: {}\r\nURL: {}".format(name, title, author, origurl))
+
 
 def setup(bot):
     bot.add_cog(General(bot))
