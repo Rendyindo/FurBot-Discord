@@ -175,7 +175,7 @@ class General():
                 part = data['part']
                 time = data['est_time']
                 await ctx.send("Result found!\r\nAnime: {} - {}\r\nEstimated Time: {}".format(anime, part, time))
-            if "e621" in name:
+            elif "e621" in name:
                 parsed = urlparse(origurl)
                 if parsed.netloc == "e621.net":
                     urlargs = parsed.path.split('/')
