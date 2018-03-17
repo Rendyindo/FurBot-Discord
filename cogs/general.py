@@ -2,7 +2,11 @@ import discord, random
 from discord.ext import commands
 import asyncio, aiohttp
 from weather import Weather
+import urllib
+from urllib.parse import urlparse
+import cogs.utils.eapi
 
+processshowapi = cogs.utils.eapi.processshowapi
 w = Weather(unit='c')
 sauceurl = "https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url="
 
@@ -74,7 +78,7 @@ class General():
         embed=discord.Embed(title="**" + result['word'] + "**", url=result['permalink'], description="by: " + result['author'], color=0xc4423c)
         embed.add_field(name="Definition", value=result['definition'], inline=False)
         embed.add_field(name="Example", value=result['example'], inline=True)
-        embed.set_footer(text=u"👍 " + str(result['thumbs_up']) + " | " + u"👎 " + str(result['thumbs_down']))
+        embed.set_footer(text=u"馃憤 " + str(result['thumbs_up']) + " | " + u"馃憥 " + str(result['thumbs_down']))
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -154,16 +158,48 @@ class General():
                         raise InvalidHTTPResponse()
             result = datajson['results'][0]
             name = result['header']['index_name']
+            data = result['data']
+            if float(result['header']['similarity']) < 70:
+                await ctx.send("No result with 75% (or more) found for this image!")
             try:
-                title = result['data']['title']
+                title = data['title']
             except KeyError:
                 title = ""
             try:
-                author = result['data']['author_name']
+                author = data['author_name']
             except KeyError:
                 author = ""
-            origurl = result['data']['ext_urls'][0]
-            await ctx.send("Result found! ({})\r\nTitle: {}\r\nAuthor: {}\r\nURL: {}".format(name, title, author, origurl))
+            origurl = data['ext_urls'][0]
+            if "Anime" in name:
+                anime = data['source']
+                part = data['part']
+                time = data['est_time']
+                await ctx.send("Result found! ({})\r\nAnime: {} - {}\r\nEstimated Time: {}".format(anime, part, time))
+            if "e621" in name:
+                parsed = urlparse(origurl)
+                if parsed.netloc == "e621.net":
+                    urlargs = parsed.path.split('/')
+                    try:
+                        postid = urlargs[3]
+                    except IndexError:
+                        return
+                    try:
+                        int(postid)
+                    except ValueError:
+                        return
+                    print("------")
+                    arg = str(postid)
+                    print("Got command with arg: " + arg)
+                    apilink = 'https://e621.net/post/show.json?id=' + arg
+                    try:
+                        await processshowapi(apilink)
+                    except ResultNotFound:
+                        return
+                    except InvalidHTTPResponse:
+                        return
+                    await ctx.send("""Result found!\r\nArtist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
+            else:
+                await ctx.send("Result found! ({})\r\nTitle: {}\r\nAuthor: {}\r\nURL: {}".format(name, title, author, origurl))
 
 
 def setup(bot):
