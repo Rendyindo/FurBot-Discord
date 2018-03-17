@@ -161,6 +161,7 @@ class General():
             data = result['data']
             if float(result['header']['similarity']) < 70:
                 await ctx.send("No result with 75% (or more) found for this image!")
+                return
             try:
                 title = data['title']
             except KeyError:
