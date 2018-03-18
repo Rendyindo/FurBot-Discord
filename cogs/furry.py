@@ -45,7 +45,7 @@ class Furry():
         netloc = "e621"
         print("------")
         print("Got command with args: " + args)
-        if "order:score_asc":
+        if "order:score_asc" in args:
             await ctx.send("I'm not going to fall into that one, silly~")
             return
         if "score:" in args:
@@ -75,7 +75,7 @@ class Furry():
         netloc = "e926"
         print("------")
         print("Got command with args: " + args)
-        if "order:score_asc":
+        if "order:score_asc" in args:
             await ctx.send("I'm not going to fall into that one, silly~")
             return
         if "score:" in args:
