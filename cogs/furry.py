@@ -119,11 +119,12 @@ class Furry():
         """Output random result from e621/e926.  
         If channel is NSFW, use e621, if not, then use e926."""
         if not isinstance(ctx.channel, discord.DMChannel):
-            if not isinstance(ctx.channel, discord.GroupChannel):
-                if not ctx.channel.is_nsfw():
-                    netloc = "e926"
-                else:
-                    netloc = "e621"
+            if not ctx.channel.is_nsfw():
+                netloc = "e926"
+            else:
+                netloc = "e621"
+        else:
+            netloc = "e621"
         print("------")
         print("Got command")
         apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>25&limit=320&page=' + str(random.randint(1,11))
