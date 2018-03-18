@@ -69,7 +69,7 @@ class General():
                     print("Invalid HTTP Response:" + str(r.status))
                     raise InvalidHTTPResponse()
         listcount = 0
-        if not datajson['list'][listcount]['definition']:
+        if not datajson['list']:
             await ctx.send("Result not found!")
         try:
             while datajson['list'][listcount]['definition'].count('') > 1001:
