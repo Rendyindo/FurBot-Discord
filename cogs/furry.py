@@ -45,7 +45,13 @@ class Furry():
         netloc = "e621"
         print("------")
         print("Got command with args: " + args)
-        apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
+        if "order:score_asc":
+            await ctx.send("I'm not going to fall into that one, silly~")
+            return
+        if "score:" in args:
+            apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
+        else:
+            apilink = 'https://e621.net/post/index.json?tags=' + args + ' score:>25&limit=320'
         try:
             await processapi(apilink)
         except ResultNotFound:
@@ -69,7 +75,13 @@ class Furry():
         netloc = "e926"
         print("------")
         print("Got command with args: " + args)
-        apilink = 'https://e926.net/post/index.json?tags=' + args + '&limit=320'
+        if "order:score_asc":
+            await ctx.send("I'm not going to fall into that one, silly~")
+            return
+        if "score:" in args:
+            apilink = 'https://e621.net/post/index.json?tags=' + args + '&limit=320'
+        else:
+            apilink = 'https://e621.net/post/index.json?tags=' + args + ' score:>25&limit=320'
         try:
             await processapi(apilink)
         except ResultNotFound:
@@ -114,7 +126,7 @@ class Furry():
                     netloc = "e621"
         print("------")
         print("Got command")
-        apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320'
+        apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320&page=' + str(random.randint(1,11))
         try:
             await processapi(apilink)
         except ResultNotFound:
