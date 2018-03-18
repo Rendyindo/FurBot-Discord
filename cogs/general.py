@@ -71,6 +71,7 @@ class General():
         listcount = 0
         if not datajson['list']:
             await ctx.send("Result not found!")
+            return
         try:
             while datajson['list'][listcount]['definition'].count('') > 1001:
                 listcount = listcount + 1
