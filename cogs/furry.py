@@ -126,7 +126,7 @@ class Furry():
                     netloc = "e621"
         print("------")
         print("Got command")
-        apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>200 rating:e&limit=320&page=' + str(random.randint(1,11))
+        apilink = 'https://' + netloc + '.net/post/index.json?tags=score:>25&limit=320&page=' + str(random.randint(1,11))
         try:
             await processapi(apilink)
         except ResultNotFound:
