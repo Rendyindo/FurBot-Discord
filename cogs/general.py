@@ -81,7 +81,7 @@ class General():
         embed=discord.Embed(title="**" + result['word'] + "**", url=result['permalink'], description="by: " + result['author'], color=0xc4423c)
         embed.add_field(name="Definition", value=result['definition'], inline=False)
         embed.add_field(name="Example", value=result['example'], inline=True)
-        embed.set_footer(text=u"👍 " + str(result['thumbs_up']) + " | " + u"👎 " + str(result['thumbs_down']))
+        embed.set_footer(text=u"馃憤 " + str(result['thumbs_up']) + " | " + u"馃憥 " + str(result['thumbs_down']))
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -146,9 +146,12 @@ class General():
 
     @commands.command()
     async def sauce(self, ctx):
+        """Reverse search an image given
+
+            Usage: uhmm, actually just send an image wiyh f!sauce as description"""
         embeds = ctx.message.attachments
         if not embeds:
-            await ctx.send(">w<")
+            await ctx.send("Please send me an image with `f!sauce` as description!")
         for embed in embeds:
             imageurl = embed.url
             apilink = sauceurl + imageurl
