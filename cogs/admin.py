@@ -71,7 +71,11 @@ class Admin():
         if not permissions['manage_messages']:
             await ctx.send("You need 'Manage Messages' permission to do this!")
             return
-        number = int(number)
+        try:
+            number = int(number)
+        except:
+            ctx.send("Please input amount of messages you want to delete!")
+            return
         counter = 0
         async for x in ctx.history(limit = number, before = ctx.message):
             if counter < number:
