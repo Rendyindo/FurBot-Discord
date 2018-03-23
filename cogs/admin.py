@@ -73,7 +73,7 @@ class Admin():
             return
         number = int(number)
         counter = 0
-        async for x in ctx.history(limit = number):
+        async for x in ctx.history(limit = number, before = ctx.message):
             if counter < number:
                 await x.delete()
                 counter += 1
