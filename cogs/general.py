@@ -1,4 +1,4 @@
-import discord, random
+import discord, random, spice_api, lxml, os
 from discord.ext import commands
 import asyncio, aiohttp
 from weather import Weather
@@ -9,6 +9,18 @@ import cogs.utils.eapi
 processshowapi = cogs.utils.eapi.processshowapi
 w = Weather(unit='c')
 sauceurl = "https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url="
+try:
+    import config
+    MALUsername = config.malusername
+    MALPassword = config.malpassword
+except ImportError:
+    pass
+
+try:
+    MALUsername = os.environ['MAL_USERNAME']
+    MALPassword = os.environ['MAL_PASSWORD']
+except KeyError:
+    pass
 
 try:
     import config
@@ -207,7 +219,50 @@ class General():
                     await ctx.send("""Result found!\r\nArtist: """ + processshowapi.imgartist + """\r\nSource: `""" + processshowapi.imgsource + """`\r\nRating: """ + processshowapi.imgrating + """\r\nTags: `""" + processshowapi.imgtags + """` ...and more\r\nImage link: """ + processshowapi.file_link)
             else:
                 await ctx.send("Result found! ({})\r\nTitle: {}\r\nAuthor: {}\r\nURL: {}".format(name, title, author, origurl))
+    
+    @commands.command()
+    async def anime(self, ctx, *args):
+        """Searches anime to MAL
+        
+        Usage: f!anime <query>"""
+        args = ' '.join(args)
+        args = str(args)
+        creds = spice_api.init_auth(MALUsername, MALPassword)
+        try:
+            anime = spice_api.search(args, spice_api.get_medium("anime"), creds)[0]
+        except IndexError:
+            ctx.send("Cannot find that anime from MAL!")
+            return
+        embed=discord.Embed(title=anime.title, url="https://myanimelist.net/anime/{}".format(anime.id), description="{} | {} episode(s) | Score: {}".format(anime.anime_type, anime.episodes, anime.score), color=0x2c80d3)
+        embed.set_thumbnail(url=anime.image_url)
+        if len(anime.synopsis) > 1024:
+            embed.add_field(name="Synopsis", value=anime.synopsis[:1000] + "...", inline=False)
+        else:
+            embed.add_field(name="Synopsis", value=anime.synopsis[:1000] + "...", inline=False)
+        embed.set_footer(text=anime.status)
+        await ctx.send(embed=embed)
 
+    @commands.command()
+    async def manga(self, ctx, *args):
+        """Searches manga to MAL
+        
+        Usage: f!manga <query>"""
+        args = ' '.join(args)
+        args = str(args)
+        creds = spice_api.init_auth(MALUsername, MALPassword)
+        try:
+            manga = spice_api.search(args, spice_api.get_medium("manga"), creds)[0]
+        except IndexError:
+            ctx.send("Cannot find that manga from MAL!")
+            return
+        embed=discord.Embed(title=manga.title, url="https://myanimelist.net/anime/{}".format(manga.id), description="{} | {} volume(s) and {} chapter(s) | Score: {}".format(manga.anime_type, manga.volume, manga.chapters , manga.score), color=0x2c80d3)
+        embed.set_thumbnail(url=manga.image_url)
+        if len(manga.synopsis) > 1024:
+            embed.add_field(name="Synopsis", value=manga.synopsis[:1000] + "...", inline=False)
+        else:
+            embed.add_field(name="Synopsis", value=manga.synopsis[:1000] + "...", inline=False)
+        embed.set_footer(text=manga.status)
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(General(bot))
