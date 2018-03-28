@@ -255,7 +255,7 @@ class General():
         except IndexError:
             ctx.send("Cannot find that manga from MAL!")
             return
-        embed=discord.Embed(title=manga.title, url="https://myanimelist.net/anime/{}".format(manga.id), description="{} | {} volume(s) and {} chapter(s) | Score: {}".format(manga.anime_type, manga.volume, manga.chapters , manga.score), color=0x2c80d3)
+        embed=discord.Embed(title=manga.title, url="https://myanimelist.net/anime/{}".format(manga.id), description="{} | {} volume(s) and {} chapter(s) | Score: {}".format(manga.manga_type, manga.volume, manga.chapters , manga.score), color=0x2c80d3)
         embed.set_thumbnail(url=manga.image_url)
         if len(manga.synopsis) > 1024:
             embed.add_field(name="Synopsis", value=html.unescape(manga.synopsis[:1000]) + "...", inline=False)
