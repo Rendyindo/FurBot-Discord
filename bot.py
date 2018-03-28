@@ -11,6 +11,7 @@ import aioftp
 import aiohttp
 import discord
 from discord.ext import commands
+from bs4 import BeautifulSoup
 
 import cogs.utils.eapi
 import cogs.utils.osuapi
@@ -20,6 +21,9 @@ try:
     token = config.token
     owner = config.owner
     osutoken = config.osutoken
+    fa_a = config.fa_a
+    fa_b = config.fa_b
+    fa_cfuid = config.fa_cfuid
     ftp_server = config.ftp_server
     ftp_password = config.ftp_password
     ftp_username = config.ftp_username
@@ -35,6 +39,9 @@ try:
     ftp_server = os.environ['FTP_SERVER']
     ftp_password = os.environ['FTP_PASSWORD']
     ftp_username = os.environ['FTP_USERNAME']
+    fa_a = os.environ['A_FA']
+    fa_b = os.environ['B_FA']
+    fa_cfuid = os.environ['CFUID_FA']
 except KeyError:
     pass
 
@@ -166,6 +173,32 @@ class FurBot(commands.Bot):
                 embed.add_field(name="Map Status", value="Ranked: `{}` | Ranked date: `{}`".format(map.isranked, map.approved_date), inline=False)
                 embed.add_field(name="Map Info", value="HP: `{}` | AR: `{}` | OD: `{}` | CS: `{}` | SR: `{}`".format(map.diff_drain, map.diff_approach, map.diff_overall, map.diff_size, round(map.difficultyrating, 2)), inline=False)
                 await message.channel.send(embed=embed)
+            if parsed.netloc == "furaffinity.net" or parsed.netloc == "www.furaffinity.net":
+                urlargs = parsed.path.split('/')
+                if "view" not in urlargs[1]:
+                    return
+                link = msgurl
+                cookie = { 'b' : fa_b, 'a' : fa_a, '__cfuid' : fa_cfuid}
+                async with aiohttp.ClientSession(cookies=cookie) as session:
+                    async with session.get(link) as r:
+                        if r.status == 200:
+                            data = await r.text()
+                        else:
+                            print("Invalid HTTP Response:" + str(r.status))
+                            raise InvalidHTTPResponse()
+
+                s = BeautifulSoup(data, 'html.parser')
+                imglink = s.find(attrs={'class' : 'alt1 actions aligncenter'}).findAll('b')[1].a.get('href')
+                title = s.find(attrs={'class' : 'cat'}).string.strip()
+                artist = s.findAll(attrs={'class' : 'cat'})[1].find('a').string
+                keywords = []
+                try:
+                    for kw in s.find(attrs={'id' : 'keywords'}).findAll('a'):
+                         keywords.append(kw.string)
+                except:
+                    keywords.append("Unspecified")
+                await message.channel.send("Title: `{}`\r\nArtist: `{}`\r\nKeywords: `{}`\r\nImage link: https:{}".format(title, artist, ', '.join(keywords), imglink))
+
 
     async def find_channel(self, guild):
         """Automatically find suitable channel to send, this is invoked for `on_guild_join(guild)`"""
