@@ -236,9 +236,9 @@ class General():
         embed=discord.Embed(title=anime.title, url="https://myanimelist.net/anime/{}".format(anime.id), description="{} | {} episode(s) | Score: {}".format(anime.anime_type, anime.episodes, anime.score), color=0x2c80d3)
         embed.set_thumbnail(url=anime.image_url)
         if len(anime.synopsis) > 1024:
-            embed.add_field(name="Synopsis", value=html.unescape(anime.synopsis[:1000]) + "...", inline=False)
+            embed.add_field(name="Synopsis", value=html.unescape(anime.synopsis[:1000]).replace("<br />", "") + "...", inline=False)
         else:
-            embed.add_field(name="Synopsis", value=html.unescape(anime.synopsis), inline=False)
+            embed.add_field(name="Synopsis", value=html.unescape(anime.synopsis).replace("<br />", ""), inline=False)
         embed.set_footer(text=anime.status)
         await ctx.send(embed=embed)
 
@@ -258,9 +258,9 @@ class General():
         embed=discord.Embed(title=manga.title, url="https://myanimelist.net/anime/{}".format(manga.id), description="{} | {} volume(s) and {} chapter(s) | Score: {}".format(manga.manga_type, manga.volume, manga.chapters , manga.score), color=0x2c80d3)
         embed.set_thumbnail(url=manga.image_url)
         if len(manga.synopsis) > 1024:
-            embed.add_field(name="Synopsis", value=html.unescape(manga.synopsis[:1000]) + "...", inline=False)
+            embed.add_field(name="Synopsis", value=html.unescape(manga.synopsis[:1000]).replace("<br />", "") + "...", inline=False)
         else:
-            embed.add_field(name="Synopsis", value=html.unescape(manga.synopsis[:1000]), inline=False)
+            embed.add_field(name="Synopsis", value=html.unescape(manga.synopsis[:1000]).replace("<br />", ""), inline=False)
         embed.set_footer(text=manga.status)
         await ctx.send(embed=embed)
 
