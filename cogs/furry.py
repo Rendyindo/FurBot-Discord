@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi, cogs.utils.inkbunnyapi, os
+import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi, cogs.utils.inkbunnyapi, os, cogs.utils.fapi
 from urllib.parse import urlparse
 
 try:
@@ -199,6 +199,20 @@ class Furry():
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
         await ctx.send("""Title: {}\r\nOwner: {}\r\nKeywords: `{}`\r\nLast Update: `{}`\r\nRating: {}\r\nImage link: {}""".format(src.submission_title, src.owner, src.keywords, src.last_update, src.rating, src.file_url))
+
+    @commands.command()
+    async def fa(self, ctx, *args):
+        args = ' '.join(args)
+        args = str(args)
+        try:
+            res = await cogs.utils.fapi.FurAffinity().search(args)
+        except ResultNotFound:
+            await ctx.send("Result not found!")
+            return
+        except InvalidHTTPResponse:
+            await ctx.send("We're getting invalid response from the API, please try again later!")
+            return
+        await ctx.send("Title: `{}`\r\nArtist: `{}`\r\nKeywords: `{}`\r\nImage link: https:{}".format(res.title, res.artist, ', '.join(res.keywords), res.imglink))
 
 
 def setup(bot):
