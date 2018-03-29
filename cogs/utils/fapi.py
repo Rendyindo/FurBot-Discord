@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import aiohttp, config, random, os
+import aiohttp, random, os
 from random import randint
 try:
     import config
