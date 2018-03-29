@@ -191,7 +191,7 @@ class Furry():
         except InvalidHTTPResponse:
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
-        await ctx.send("""Title: {}\r\nLast Update: `{}`\r\nRating: {}\r\nImage link: {}""".format(src.submission_title, src.last_update, src.rating, src.file_url))
+        await ctx.send("""Title: {}\r\nOwner: {}\r\nKeywords: `{}`Last Update: `{}`\r\nRating: {}\r\nImage link: {}""".format(src.submission_title, src.owner, src.keywords, src.last_update, src.rating, src.file_url))
 
 
 def setup(bot):

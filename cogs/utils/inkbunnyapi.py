@@ -39,11 +39,12 @@ class Inkbunny(object):
         if not datajson['submissions']:
             print("Result Not Found")
             raise ResultNotFound()
-        return InkSubmission(datajson['submissions'][0])
+        return InkSubmission(datajson['submissions'][0], self.sid)
         
 class InkSubmission(object):
-    def __init__(self, submission):
+    def __init__(self, submission, sid):
         self.submission = submission
+        self.sid = sid
 
     @property
     def last_update(self):
@@ -60,3 +61,19 @@ class InkSubmission(object):
     @property
     def file_url(self):
         return self.submission['file_url_full']
+
+    @property
+    def owner(self):
+        return self.submission['username']
+    
+    @property
+    def keywords(self):
+        loginUrl = 'https://inkbunny.net/api_submissions.php?sid=%s&submission_ids=%s' \
+            % (self.sid, self.submission['submission_id'])
+        http = urllib.request.urlopen(loginUrl)
+        result = json.loads(http.read())
+
+        key = []
+        for kw in result['submissions'][0]['keywords']:
+            key.append(kw['keyword_name'])
+        return ', '.join(key)
