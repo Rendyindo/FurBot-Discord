@@ -22,16 +22,16 @@ class osu():
     """Everything osu! related
 
     Commands:
-        catch      Gives osu! profile info with given arguments for osu!catch mode.
-        mania      Gives osu! profile info with given arguments for osu!mania mode.
-        osu        Gives osu! profile info with given arguments for osu!standard mode.
-        taiko      Gives osu! profile info with given arguments for Taiko mode."""
+        catch      Gives osu! profile info for osu!catch mode.
+        mania      Gives osu! profile info for osu!mania mode.
+        osu        Gives osu! profile info for osu!standard mode.
+        taiko      Gives osu! profile info for Taiko mode."""
     def __init__(self, bot):
         self.bot = bot
 
     @commands.group(invoke_without_command=True)
     async def osu(self, ctx, *arg):
-        """Gives osu! profile info with given arguments for osu!standard mode.
+        """Gives osu! profile info for osu!standard mode.
 
         Arguments:
 
@@ -60,7 +60,7 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def taiko(self, ctx, *arg):
-        """Gives osu! profile info with given arguments for Taiko mode.
+        """Gives osu! profile info for Taiko mode.
 
         Arguments:
 
@@ -86,7 +86,7 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def catch(self, ctx, *arg):
-        """Gives osu! profile info with given arguments for osu!catch mode.
+        """Gives osu! profile info for osu!catch mode.
 
         Arguments:
 
@@ -112,7 +112,7 @@ class osu():
 
     @commands.group(invoke_without_command=True)
     async def mania(self, ctx, *arg):
-        """Gives osu! profile info with given arguments for osu!mania mode.
+        """Gives osu! profile info for osu!mania mode.
 
         Arguments:
 

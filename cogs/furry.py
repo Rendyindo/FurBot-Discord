@@ -34,6 +34,7 @@ class Furry():
     Commands:
         e621       Searches e621 with given queries.
         e926       Searches e926 with given queries.
+        inkbunny   Searches InkBunny with given queries.
         randompick Output random result from e621/e926.  
         show       Show a post from e621/e926 with given post ID
         sofurry    Searches SoFurry with given queries."""

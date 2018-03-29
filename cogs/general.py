@@ -41,9 +41,12 @@ class General():
 
     Commands:
         about      Well uhh, the bot's info, of course...
+        anime      Searches anime to MAL
         avatar     Sends avatar link of mentioned user.
         choose     Choose one of a lot arguments
+        manga      Searches manga to MAL
         report     Reports a problem to bot owner.
+        sauce      Reverse search an image given
         urban      Searches urbandictionary for a definition.
         weather    Searches weather of a location (and forecast)"""
     def __init__(self, bot):
