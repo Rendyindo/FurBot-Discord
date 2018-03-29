@@ -1,7 +1,16 @@
 import discord
 from discord.ext import commands
-import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi
+import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi, cogs.utils.inkbunnyapi
 from urllib.parse import urlparse
+
+try:
+    import config
+    inkpassword = config.inkpassword
+    inkusername = config.inkusername
+except:
+    pass
+
+
 
 processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
@@ -164,6 +173,21 @@ class Furry():
             await ctx.send("We're getting invalid response from the API, please try again later!")
             return
         await ctx.send("""Title: {}\r\nArtist: {}\r\nTags: `{}`\r\nRating: {}\r\nImage link: {}""".format(search.title, search.artistName, search.tags, search.contentRating, search.full))
+
+    @commands.command()
+    async def inkbunny(self, ctx, *args):
+        args = ' '.join(args)
+        args = str(args)
+        try:
+            ib = cogs.utils.inkbunnyapi.Inkbunny(username = inkusername, password = inkpassword)
+            src = await ib.search(args)
+        except ResultNotFound:
+            await ctx.send("Result not found!")
+            return
+        except InvalidHTTPResponse:
+            await ctx.send("We're getting invalid response from the API, please try again later!")
+            return
+        await ctx.send("""Title: {}\r\nLast Update: `{}`\r\nRating: {}\r\nImage link: {}""".format(src.submission_title, src.last_update, src.rating, src.file_url))
 
 
 def setup(bot):
