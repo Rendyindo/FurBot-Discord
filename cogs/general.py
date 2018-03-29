@@ -234,7 +234,7 @@ class General():
         try:
             anime = spice_api.search(args, spice_api.get_medium("anime"), creds)[0]
         except IndexError:
-            ctx.send("Cannot find that anime from MAL!")
+            await ctx.send("Cannot find that anime from MAL!")
             return
         embed=discord.Embed(title=anime.title, url="https://myanimelist.net/anime/{}".format(anime.id), description="{} | {} episode(s) | Score: {}".format(anime.anime_type, anime.episodes, anime.score), color=0x2c80d3)
         embed.set_thumbnail(url=anime.image_url)
@@ -256,7 +256,7 @@ class General():
         try:
             manga = spice_api.search(args, spice_api.get_medium("manga"), creds)[0]
         except IndexError:
-            ctx.send("Cannot find that manga from MAL!")
+            await ctx.send("Cannot find that manga from MAL!")
             return
         embed=discord.Embed(title=manga.title, url="https://myanimelist.net/anime/{}".format(manga.id), description="{} | {} volume(s) and {} chapter(s) | Score: {}".format(manga.manga_type, manga.volumes, manga.chapters , manga.score), color=0x2c80d3)
         embed.set_thumbnail(url=manga.image_url)
