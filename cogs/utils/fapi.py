@@ -47,7 +47,7 @@ class FurAffinity():
                     print("Invalid HTTP Response:" + str(r.status))
                     raise InvalidHTTPResponse()
         s = BeautifulSoup(data, 'html.parser')
-        post = randint(0, 48)
+        post = randint(0, 47)
         shuffled = s.find(attrs={'id' : 'gallery-search-results'}).findAll("figure")[post].findAll("a")[0]['href']
         async with aiohttp.ClientSession(cookies=cookie) as session:
             async with session.get("https://www.furaffinity.net/{}".format(shuffled)) as r:
