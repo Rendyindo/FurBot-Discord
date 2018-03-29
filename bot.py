@@ -109,7 +109,6 @@ class FurBot(commands.Bot):
             return
         if message.author.bot:
             return
-        await asyncio.sleep(0.5)
         await self.process_commands(message)
         msgurls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
         for msgurl in msgurls:
