@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi, cogs.utils.inkbunnyapi
+import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi, cogs.utils.inkbunnyapi, os
 from urllib.parse import urlparse
 
 try:
@@ -10,7 +10,11 @@ try:
 except:
     pass
 
-
+try:
+    inkpassword = os.environ['INK_PASSWORD']
+    inkusername = os.environ['INK_USERNAME']
+except:
+    pass
 
 processapi = cogs.utils.eapi.processapi
 processshowapi = cogs.utils.eapi.processshowapi
