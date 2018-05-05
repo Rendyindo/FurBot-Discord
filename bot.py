@@ -199,7 +199,19 @@ class FurBot(commands.Bot):
                 except:
                     keywords.append("Unspecified")
                 await message.channel.send("Title: `{}`\r\nArtist: `{}`\r\nKeywords: `{}`\r\nImage link: https:{}".format(title, artist, ', '.join(keywords), imglink))
+        
+        def check(m):
+            return m.content.lower() == 'good bot' or m.content.lower() == 'bad bot' and m.channel == message.channel
 
+        try:
+            msg = await self.wait_for('message', timeout=5.0, check=check)
+        except asyncio.TimeoutError:
+            pass
+        else:
+            if msg.content.lower() == 'good bot':
+                await message.channel.send("Thank you, {}! I'm glad I can be useful for you UwU".format(msg.author.mention))
+            else:
+                await message.channel.send("Ouch, sorry I can't provide what you want, {} ;w;".format(msg.author.mention))
 
     async def find_channel(self, guild):
         """Automatically find suitable channel to send, this is invoked for `on_guild_join(guild)`"""
