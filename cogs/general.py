@@ -228,6 +228,8 @@ class General():
         """Searches anime to MAL
         
         Usage: f!anime <query>"""
+        ctx.send("MAL API is broken, sorry! https://myanimelist.net/forum/?topicid=1731860#msg55362465")
+        return
         args = ' '.join(args)
         args = str(args)
         creds = spice_api.init_auth(MALUsername, MALPassword)
@@ -250,6 +252,8 @@ class General():
         """Searches manga to MAL
         
         Usage: f!manga <query>"""
+        ctx.send("MAL API is broken, sorry! https://myanimelist.net/forum/?topicid=1731860#msg55362465")
+        return
         args = ' '.join(args)
         args = str(args)
         creds = spice_api.init_auth(MALUsername, MALPassword)
