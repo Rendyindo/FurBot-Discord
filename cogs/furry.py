@@ -202,6 +202,12 @@ class Furry():
 
     @commands.command()
     async def fa(self, ctx, *args):
+        """Searches FurAffinity with given queries.
+
+        Arguments:
+
+        `*args` : list  
+        The quer(y/ies)"""
         args = ' '.join(args)
         args = str(args)
         try:
