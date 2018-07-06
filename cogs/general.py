@@ -280,9 +280,23 @@ class General():
         args = ' '.join(args)
         args = str(args)
         e = w.lookup_by_location(args)
+        a = e.astronomy()['sunrise']
+        b = a.split(" ")
+        c = b[0].split(":")
+        if len(c[1]) == 1:
+            d = "{}:0{} {}".format(c[0], c[1], b[1])
+        else:
+            d = a
+        f = e.astronomy()['sunrise']
+        g = a.split(" ")
+        h = b[0].split(":")
+        if len(h[1]) == 1:
+            i = "{}:0{} {}".format(h[0], h[1], g[1])
+        else:
+            i = a
         embed=discord.Embed(title="{}".format(e.description()))
         embed.add_field(name="Current Weather", value="`{} ({}°{})`".format(e.condition().text(), e.condition().temp(), e.units()['temperature']), inline=False)
-        embed.add_field(name="Astronomical Conditions", value="Sunrise: `{}`\r\nSunset: `{}`".format(e.astronomy()['sunrise'],e.astronomy()['sunset']), inline=False)
+        embed.add_field(name="Astronomical Conditions", value="Sunrise: `{}`\r\nSunset: `{}`".format(d,i), inline=False)
         embed.add_field(name="Wind Speed", value="`{}{}`".format(e.atmosphere()['humidity'], e.units()['speed']), inline=False)
         embed.add_field(name="Humidity", value="`{}%`".format(e.atmosphere()['humidity']), inline=False)
         embed.set_footer(text="Data provided from Yahoo! Weather | Use f!forecast for forecast")
