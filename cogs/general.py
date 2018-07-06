@@ -287,7 +287,7 @@ class General():
             d = "{}:0{} {}".format(c[0], c[1], b[1])
         else:
             d = a
-        f = e.astronomy()['sunrise']
+        f = e.astronomy()['sunset']
         g = a.split(" ")
         h = b[0].split(":")
         if len(h[1]) == 1:
