@@ -297,7 +297,7 @@ class General():
         embed=discord.Embed(title="{}".format(e.description()))
         embed.add_field(name="Current Weather", value="`{} ({}°{})`".format(e.condition().text(), e.condition().temp(), e.units()['temperature']), inline=False)
         embed.add_field(name="Astronomical Conditions", value="Sunrise: `{}`\r\nSunset: `{}`".format(d,i), inline=False)
-        embed.add_field(name="Wind Speed", value="`{}{}`".format(e.atmosphere()['humidity'], e.units()['speed']), inline=False)
+        embed.add_field(name="Wind Speed", value="`{}{}`".format(e.wind()['speed'], e.units()['speed']), inline=False)
         embed.add_field(name="Humidity", value="`{}%`".format(e.atmosphere()['humidity']), inline=False)
         embed.set_footer(text="Data provided from Yahoo! Weather | Use f!forecast for forecast")
         await ctx.send(embed=embed)
