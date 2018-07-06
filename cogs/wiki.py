@@ -1,4 +1,4 @@
-import discord
+import discord, mediawiki
 from discord.ext import commands
 from mediawiki import MediaWiki
 
@@ -28,7 +28,7 @@ class Wiki():
             return
         try:
             page = wikifur.page(pageresult)
-        except DisambiguationError:
+        except mediawiki.exceptions.DisambiguationError:
             await ctx.send("Title is pretty ambiguous, please be more spesific!")
             return
         embed=discord.Embed(title=page.title, url="https://en.wikifur.com/wiki/{}".format(page.title.replace(" ", "_")), color=0xd61510)
@@ -49,7 +49,7 @@ class Wiki():
             return
         try:
             page = wikipedia.page(pageresult)
-        except DisambiguationError:
+        except mediawiki.exceptions.DisambiguationError:
             await ctx.send("Title is pretty ambiguous, please be more spesific!")
             return
         embed=discord.Embed(title=page.title, url="https://en.wikipedia.org/wiki/{}".format(page.title.replace(" ", "_")), color=0xd61510)
