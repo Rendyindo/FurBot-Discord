@@ -147,7 +147,7 @@ class General():
 
     @commands.command()
     async def forecast(self, ctx, *args):
-        """Searches forecast of a location (and forecast)
+        """Sends forecast of a location
         
         Usage: f!forecast <place>"""
         args = ' '.join(args)
@@ -269,6 +269,22 @@ class General():
         else:
             embed.add_field(name="Synopsis", value=html.unescape(manga.synopsis[:1000]).replace("<br />", ""), inline=False)
         embed.set_footer(text=manga.status)
+        await ctx.send(embed=embed)
+        
+    @commands.command()
+    async def weather(self, ctx, *args):
+        """Sends weather info of a location
+        
+        Usage: f!weather <place>"""
+        args = ' '.join(args)
+        args = str(args)
+        e = w.lookup_by_location(args)
+        embed=discord.Embed(title="{}".format(e.description()))
+        embed.add_field(name="Current Weather", value="{}".format(e.condition.text()), inline=False)
+        embed.add_field(name="Astronomical Conditions", value="Sunrise: `{}`\r\nSunset: `{}`".format(e.astronomy()['sunrise'],e.astronomy()['sunset']), inline=False)
+        embed.add_field(name="Wind Speed", value="{}{}".format(e.atmosphere()['humidity'], e.units()['speed']), inline=False)
+        embed.add_field(name="Humidity", value="`{}%`".format(e.atmosphere()['humidity']), inline=False)
+        embed.set_footer(text="Data provided from Yahoo! Weather | Use f!forecast for forecast")
         await ctx.send(embed=embed)
 
 def setup(bot):
