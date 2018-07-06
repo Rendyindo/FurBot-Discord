@@ -21,8 +21,16 @@ class Wiki():
         Usage: f!wikifur <args>"""
         args = ' '.join(args)
         args = str(args)
-        pageresult = wikifur.search(args, results=1)[0]
-        page = wikifur.page(pageresult)
+        try:
+            pageresult = wikifur.search(args, results=1)[0]
+        except IndexError:
+            await ctx.send("Result not found!")
+            return
+        try:
+            page = wikifur.page(pageresult)
+        except DisambiguationError:
+            await ctx.send("Title is pretty ambiguous, please be more spesific!")
+            return
         embed=discord.Embed(title=page.title, url="https://en.wikifur.com/wiki/{}".format(page.title.replace(" ", "_")), color=0xd61510)
         embed.add_field(name="Summary", value=page.summarize(chars=1000), inline=False)
         await ctx.send(embed=embed)
@@ -34,8 +42,16 @@ class Wiki():
         Usage: f!wikipedia <args>"""
         args = ' '.join(args)
         args = str(args)
-        pageresult = wikipedia.search(args, results=1)[0]
-        page = wikipedia.page(pageresult)
+        try:
+            pageresult = wikipedia.search(args, results=1)[0]
+        except IndexError:
+            await ctx.send("Result not found!")
+            return
+        try:
+            page = wikipedia.page(pageresult)
+        except DisambiguationError:
+            await ctx.send("Title is pretty ambiguous, please be more spesific!")
+            return
         embed=discord.Embed(title=page.title, url="https://en.wikipedia.org/wiki/{}".format(page.title.replace(" ", "_")), color=0xd61510)
         embed.add_field(name="Summary", value=page.summarize(chars=1000), inline=False)
         await ctx.send(embed=embed)
