@@ -288,8 +288,8 @@ class General():
         else:
             d = a
         f = e.astronomy()['sunset']
-        g = a.split(" ")
-        h = b[0].split(":")
+        g = f.split(" ")
+        h = g[0].split(":")
         if len(h[1]) == 1:
             i = "{}:0{} {}".format(h[0], h[1], g[1])
         else:
