@@ -48,7 +48,8 @@ class General():
         report     Reports a problem to bot owner.
         sauce      Reverse search an image given
         urban      Searches urbandictionary for a definition.
-        forecast   Sends forecast of a location"""
+        forecast   Sends forecast of a location
+        weather    Sends weather of a location"""
     def __init__(self, bot):
         self.bot = bot
     
@@ -280,7 +281,7 @@ class General():
         args = str(args)
         e = w.lookup_by_location(args)
         embed=discord.Embed(title="{}".format(e.description()))
-        embed.add_field(name="Current Weather", value="{}".format(e.condition.text()), inline=False)
+        embed.add_field(name="Current Weather", value="{}".format(e.condition().text()), inline=False)
         embed.add_field(name="Astronomical Conditions", value="Sunrise: `{}`\r\nSunset: `{}`".format(e.astronomy()['sunrise'],e.astronomy()['sunset']), inline=False)
         embed.add_field(name="Wind Speed", value="{}{}".format(e.atmosphere()['humidity'], e.units()['speed']), inline=False)
         embed.add_field(name="Humidity", value="`{}%`".format(e.atmosphere()['humidity']), inline=False)
