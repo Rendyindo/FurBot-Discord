@@ -293,7 +293,7 @@ class General():
         if len(h[1]) == 1:
             i = "{}:0{} {}".format(h[0], h[1], g[1])
         else:
-            i = a
+            i = f
         embed=discord.Embed(title="{}".format(e.description()))
         embed.add_field(name="Current Weather", value="`{} ({}°{})`".format(e.condition().text(), e.condition().temp(), e.units()['temperature']), inline=False)
         embed.add_field(name="Astronomical Conditions", value="Sunrise: `{}`\r\nSunset: `{}`".format(d,i), inline=False)
