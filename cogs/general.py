@@ -48,7 +48,7 @@ class General():
         report     Reports a problem to bot owner.
         sauce      Reverse search an image given
         urban      Searches urbandictionary for a definition.
-        weather    Searches weather of a location (and forecast)"""
+        forecast   Sends forecast of a location"""
     def __init__(self, bot):
         self.bot = bot
     
@@ -146,15 +146,15 @@ class General():
         await ctx.send(random.choice(choices) + ", of course!")
 
     @commands.command()
-    async def weather(self, ctx, *args):
-        """Searches weather of a location (and forecast)
+    async def forecast(self, ctx, *args):
+        """Searches forecast of a location (and forecast)
         
-        Usage: f!weather <place>"""
+        Usage: f!forecast <place>"""
         args = ' '.join(args)
         args = str(args)
         location = w.lookup_by_location(args)
         condition = location.condition()
-        embed=discord.Embed(title="Weather for {}".format(args), description="Current weather: {}".format(condition.text()), color=0x0080c0)
+        embed=discord.Embed(title="Forecast for {}".format(args), description="Current weather: {}".format(condition.text()), color=0x0080c0)
         for forecast in location.forecast()[:9]:
             embed.add_field(name=forecast.date(), value=forecast.text(), inline=True)
         await ctx.send(embed=embed)
