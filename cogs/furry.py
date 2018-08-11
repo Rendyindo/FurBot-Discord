@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
-import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi, cogs.utils.inkbunnyapi, os, cogs.utils.fapi
+import random, asyncio, cogs.utils.eapi, cogs.utils.sfapi, cogs.utils.inkbunnyapi, os
+import cogs.utils.fapi as fa
 from urllib.parse import urlparse
 
 try:
@@ -211,7 +212,7 @@ class Furry():
         args = ' '.join(args)
         args = str(args)
         try:
-            res = await cogs.utils.fapi.FurAffinity().search(args)
+            res = fa.FurAffinity().search(args)
         except ResultNotFound:
             await ctx.send("Result not found!")
             return
