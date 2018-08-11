@@ -5,6 +5,8 @@ from weather import Weather
 import urllib
 from urllib.parse import urlparse
 import cogs.utils.eapi
+import string
+from PIL import Image
 
 processshowapi = cogs.utils.eapi.processshowapi
 w = Weather(unit='c')
@@ -301,6 +303,34 @@ class General():
         embed.add_field(name="Humidity", value="`{}%`".format(e.atmosphere()['humidity']), inline=False)
         embed.set_footer(text="Data provided from Yahoo! Weather | Use f!forecast for forecast")
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def jpeg(self, ctx):
+        """Basically needsmorejpeg
+
+            Usage: just send an image wiyh f!jpeg as description"""
+        embeds = ctx.message.attachments
+        images = []
+        filenames = []
+        if not os.path.exists("tmp"):
+            os.makedirs("tmp")
+        if not embeds:
+            await ctx.send("Please send me an image with `f!jpeg` as description!")
+        for embed in embeds:
+            name = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10)) + ".jpg"
+            await embed.save("tmp/" + name)
+            Image.open("tmp/" + name).save("tmp/more-" + name, 'JPEG', quality=1)
+            filenames.append("tmp/more-" + name)
+            filenames.append("tmp/" + name)
+            images.append(discord.File("tmp/more-" + name))
+        await ctx.send("Done!", files=images)
+        # cleanup
+        try:
+            for fil in filenames:
+                os.remove(fil)
+        except:
+            pass
+            
 
 def setup(bot):
     bot.add_cog(General(bot))
